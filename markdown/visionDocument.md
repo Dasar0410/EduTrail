@@ -20,11 +20,16 @@ Our product fills a niche role, and therefore faces less to no competition. This
 
 ### 2.2 Problem Statement
 
-
-
-
+|  |  |
+|------ |------| 
+| The problem of | managing the continious flow of result during a game of rebus |
+| affects | the administrator of the games |
+| the impact of witch is | results may not be registred, and the process may be stressful for administrators. |
+| A successful solution would be | to streamline the point counting process, making it easier for an administrator to quicly registrer points during the game.| 
 
 ### 2.3 Product Position Statement
+
+
 
 ## 3: Project Goal
 
