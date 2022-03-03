@@ -16,7 +16,7 @@ Edutrail is an application made with the purpose of aiding organizers in keeping
 
 ### 2.1 Opportunity
 
-Our product fills a niche role, and therefore faces less to no competition. This lightweigth application is  specifilaclly tailored to run the rebus game, and would be convenient for organizers that administrates theese games on a regular basis. The simple nature of the program also means that the costs of maintaining will be close to 0,resulting in a very low risk project.
+Our product fills a niche role, and therefore faces less to no competition. This lightweigth application is  specifilaclly tailored to run the rebus game, and would be convenient for organizers that administrators theese games on a regular basis. The simple nature of the program also means that the costs of maintaining will be close to 0,resulting in a very low risk project.
 
 ### 2.2 Problem Statement
 
@@ -31,7 +31,7 @@ Our product fills a niche role, and therefore faces less to no competition. This
 
 | | |
 |------|------|
-| For | rebus administraters |
+| For | rebus administrator |
 | who | dislike the hectic nature of being a rebus administrator. |
 | The edutrail application | is a point, team and game management tool 
 | That | offers a more streamlined approach for managing a large game of rebus.
