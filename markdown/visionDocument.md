@@ -43,7 +43,25 @@ Our product fills a niche role, and therefore faces less to no competition. This
 
 ## 4 Stakeholder and User Descriptions (not needed?)
 
-## 5 Prouduct Overview
+### 4.1	Market Demographics
+
+Edutrail doesn't necesserily have a specific target demographic considering the nature of the sport. Administering a Rebus game is as popular with young people as with elderly and there's isn't any need to choose a key age demographic as this would just reduce maximal market potential. Geographically speaking rebus racing is far more popular in Europe, and North America compared to other continents and therefore we should make sure Edutrail is "blablabla" towards western markets. 
+Calculating total market size for such a niche market is not possible, but with little to no competition Edutrail could have a big impact on market growth.
+
+
+jeg kan gjøre hele del.4 :)
+
+### 4.2	Stakeholder Summary
+
+### 4.3	User Summary
+
+### 4.4	User Environment
+
+### 4.5	Key Stakeholder or User Needs
+
+### 4.6	Alternatives and Competition
+
+## 5 Product Overview
 
 ### 5.1 Product Perspective
 
