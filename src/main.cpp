@@ -7,16 +7,15 @@
  *  
  */
 
-#include "LesData2.h";
-#include "Rebus.h";
-#include "Checkpoint.h";
-#include "Team.h";
-#include "miscFunctions.h";
+#include "LesData2.h"
+#include "Rebus.h"
+#include "Checkpoint.h"
+#include "Team.h"
+#include "miscFunctions.h"
 
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <string>
 using namespace std;
 
 int main(){
