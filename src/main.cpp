@@ -1,6 +1,6 @@
 /**
  * @file main.cpp
- * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no)
+ * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no), Daniel Pietrzykowski Sarjomaa (NTNU)
  * @brief Main file of Edutrail project.
  * @version 0.0.0
  * @date 2022-03-14
@@ -21,7 +21,10 @@ using namespace std;
 
 void writeMainMenu();
 void teamMenu();
-
+void postsMenu();
+void showResult();
+void registerResult();
+void showSettings();
 /**
  *  Main Program:
  */
@@ -36,10 +39,10 @@ int main(){
         cout << '\n';
         switch(command){ //funksjonsnavn kan endres
             case 1: teamMenu(); break;
-            //case 2: postsMenu(); break; 
-            //case 3: showResults(); break;
-            //case 4: registerPoints(); break;
-            //case 5: Settings(); break;
+            case 2: postsMenu(); break; 
+            case 3: showResult(); break;
+            case 4: registerResult(); break;
+            case 5: showSettings(); break;
             case 6: break;
             default: writeMainMenu();
         }
@@ -56,7 +59,8 @@ void writeMainMenu(){
          << "\t5. Settings \n"
          << "\t6. Exit program \n";
 }
-
+//Teams Meny nedenfor og alle tilhørende funksjoner
+//kan flyttes til egen fil senere?
 void teamMenu(){
     int command;
     cout << "Choose Option:\n"
@@ -64,18 +68,80 @@ void teamMenu(){
          << "\t2. Edit Team\n"
          << "\t3. Delete Team\n";
     command = lesInt("Choose a numeric option",1,3);
-    
+
     switch(command){
         //case 1: newTeam(); break;
         //case 2: editTeam(); break;
         //case 3: deleteTeam(); break;
         default: break;
         }
+}
+// team funksjoner slutt
 
 
 
+// posts meny funksjoner
+void postsMenu(){
+    int command;
+    cout << "Choose Option:\n"
+         << "\t1. New post\n"
+         << "\t2. Edit post\n"
+         << "\t3. Delete post\n";
+    command = lesInt("Choose a numeric option",1,3);
 
+    switch(command){
+        //case 1: newPost(); break;
+        //case 2: editPost(); break;
+        //case 3: deletePost(); break;
+        default: break;
+        }
 }
 
+//post funksjoner slutt
+
+//resultat funksjoner start
+void showResult(){
+    int command;
+    cout << "Choose Option:\n"
+         << "\t1. Show all results\n"
+         << "\t2. Show points for select team\n"
+         << "\t3. Show points for select post\n";
+    command = lesInt("Choose a numeric option",1,3);
+
+    switch(command){
+        //case 1: showAllResults(); break;
+        //case 2: showTeamResult(); break;
+        //case 3: showPostResult(); break;
+        default: break;
+        }
+}
+
+// resultat funksjoner slutt
+
+//registrer poeng funksjoner start
+void registerResult(){
+    // registrer poeng for ett lag
+
+    }
 
 
+
+//registrer nye poeng slutt
+
+
+// settings funksjoner start
+void showSettings(){
+    int command;
+    cout << "Choose Option:\n"
+         << "\t1. Save tournament\n"
+         << "\t2. Create new tournament\n";
+    command = lesInt("Choose a numeric option",1,3);
+
+    switch(command){
+        //case 1: saveTournament(); break;
+        //case 2: createTournament(); break;
+        default: break;
+        }
+}
+
+//settings funksjoner slutt
