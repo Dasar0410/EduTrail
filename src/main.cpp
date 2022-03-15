@@ -20,21 +20,27 @@
 using namespace std;
 
 void writeMainMenu();
+void teamMenu();
 
-
+/**
+ *  Main Program:
+ */
 int main(){
-    char command;
+    int command;
+    
     do{
         writeMainMenu();
-        command = lesInt("Choose a number option",1,6); // er egt bare 5 valg i hovedmenyen men valg 6 burde vel eksistere så brukere
+        
+        command = lesInt("Choose a numeric option",1,6); // er egt bare 5 valg i hovedmenyen men valg 6 burde vel eksistere så brukere
                                                             // kan avslutte programmet, right? - Daniel
-        switch(command){
-            //case '1': teamMenu(); break;
-            //case '2': postsMenu(); break;
-            //case '3': showResults(); break;
-            //case '4': registerPoints(); break;
-            //case '5': Settings(); break;
-            //case '6': break;
+        cout << '\n';
+        switch(command){ //funksjonsnavn kan endres
+            case 1: teamMenu(); break;
+            //case 2: postsMenu(); break; 
+            //case 3: showResults(); break;
+            //case 4: registerPoints(); break;
+            //case 5: Settings(); break;
+            case 6: break;
             default: writeMainMenu();
         }
         
@@ -50,5 +56,26 @@ void writeMainMenu(){
          << "\t5. Settings \n"
          << "\t6. Exit program \n";
 }
+
+void teamMenu(){
+    int command;
+    cout << "Choose Option:\n"
+         << "\t1. New Team\n"
+         << "\t2. Edit Team\n"
+         << "\t3. Delete Team\n";
+    command = lesInt("Choose a numeric option",1,3);
+    
+    switch(command){
+        //case 1: newTeam(); break;
+        //case 2: editTeam(); break;
+        //case 3: deleteTeam(); break;
+        default: break;
+        }
+
+
+
+
+}
+
 
 
