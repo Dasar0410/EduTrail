@@ -26,6 +26,8 @@ class Team{
     public:
         void readData();
         void newMember();
+        void writeData(const bool showMembers);
+        int getTotalPoints();
 
         Team(){                         //Reads data to team upon it's creation.
             readData();
@@ -59,3 +61,33 @@ void Team :: readData(){
     
     cout << "New team \"" << name << "\" added.\n";
 };
+
+/**
+ * @brief Writes out the informnation of the team in a readable format for the user.
+ * 
+ * @param showMembers If set to true, the function will also display each individual team member. 
+ * 
+ * @see getTotalPoints()
+ */
+void Team :: writeData(const bool showMembers){
+    cout << "\t" << name;
+    cout << ": " << getTotalPoints() << " poeng.\n";
+    if(showMembers==true){
+        for(int i = 0; i<participants.size();i++){      //loops through all participants in vector.
+            cout << "\t\t" << participants[i] << "\n";
+        }
+    }
+}
+
+/**
+ * @brief Returns the tootal of all indexes of points.
+ * 
+ * @return The total point value.
+ */
+int Team :: getTotalPoints(){
+    int total=0;
+    for(int i = 0;i<points.size();i++){         //Loops through all indexes/checkpoints in points vector.
+        total = total + points[i];              //adds current index to total value
+    }
+    return total;
+}
