@@ -10,6 +10,11 @@
 
 #include "LesData2.h"
 
+#include <string>
+#include <iostream>
+using namespace std;
+
+
 enum checkpointMode{points,standardTime,rankedTime};        //Enum containing the game-types a checkpoint may use.
 
 class Checkpoint{

@@ -8,7 +8,7 @@
  */
 
 #include "LesData2.h"
-//#include "Checkpoint.h"
+#include "Checkpoint.h"
 #include "Team.h"
 #include "Rebus.h"
 #include "miscFunctions.h"
@@ -74,8 +74,8 @@ void teamMenu(){
 
     switch(command){
         case 1: gMainRebus.newTeam(); break;
-        //case 2: editTeam(); break;
-        //case 3: deleteTeam(); break;
+//        case 2: gMainRebus.editTeam(); break; //Will finish theese later.
+//        case 3: gmainRebus.deleteTeam(); break;
         default: break;
         }
 }

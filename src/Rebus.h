@@ -28,6 +28,9 @@ class Rebus{
 
     public:
         void newTeam();
+        void editTeam();
+        void deleteTeam();
+        void listTeams();
 };
 
 
@@ -38,4 +41,18 @@ class Rebus{
 void Rebus :: newTeam(){
     Team * tempTeam = new Team;
     teams.push_back(tempTeam);
+}
+
+void Rebus :: deleteTeam(){
+
+}
+
+void Rebus :: editTeam(){
+
+}
+
+void Rebus :: listTeams(){
+    for(int i=0;i<teams.size();i++){
+        cout << teams[i]->returnName() << "\n";
+    }
 }
