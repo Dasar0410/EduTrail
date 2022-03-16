@@ -40,6 +40,7 @@ class Team{
  */
 void Team :: newMember(){
     string tempName;                    //Assisting varaible
+    cin.ignore();
     cout << "Enter name of member: ";   
     getline(cin,tempName);              //gets string from user
     participants.push_back(tempName);   //Adds the string to the back of the participants vector.

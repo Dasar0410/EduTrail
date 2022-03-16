@@ -8,9 +8,9 @@
  */
 
 #include "LesData2.h"
-#include "Rebus.h"
-#include "Checkpoint.h"
+//#include "Checkpoint.h"
 #include "Team.h"
+#include "Rebus.h"
 #include "miscFunctions.h"
 
 #include <iostream>

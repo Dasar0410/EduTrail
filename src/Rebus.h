@@ -9,8 +9,10 @@
  */
 
 
-#include "Checkpoint.h"
+//#include "Checkpoint.h"
 
+#include <iostream>
+#include <string>
 #include <vector>
 using namespace std;
 
@@ -21,7 +23,7 @@ using namespace std;
  */
 class Rebus{
     private:
-        vector <Checkpoint*> checkpoints;
+//        vector <Checkpoint*> checkpoints;
         vector <Team*> teams;
 
     public:
