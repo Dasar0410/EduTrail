@@ -25,4 +25,15 @@ class Rebus{
         vector <Team*> teams;
 
     public:
+        void newTeam();
 };
+
+
+/**
+ * @brief Function that creates a new team object on the team vector. See team constructor on the following process of team creation.
+ * 
+ */
+void Rebus :: newTeam(){
+    Team * tempTeam = new Team;
+    teams.push_back(tempTeam);
+}

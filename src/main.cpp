@@ -2,18 +2,17 @@
  * @file main.cpp
  * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no), Daniel Pietrzykowski Sarjomaa (NTNU)
  * @brief Main file of Edutrail project.
- * @version 0.0.0
+ * @version 0.1.0
  * @date 2022-03-14
  *  
  */
 
 #include "LesData2.h"
-/**
 #include "Rebus.h"
 #include "Checkpoint.h"
 #include "Team.h"
 #include "miscFunctions.h"
-*/
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -25,6 +24,10 @@ void postsMenu();
 void showResult();
 void registerResult();
 void showSettings();
+
+
+Rebus gMainRebus;           //den aktive rebus vi jobber på
+
 /**
  *  Main Program:
  */
@@ -70,7 +73,7 @@ void teamMenu(){
     command = lesInt("Choose a numeric option",1,3);
 
     switch(command){
-        //case 1: newTeam(); break;
+        case 1: gMainRebus.newTeam(); break;
         //case 2: editTeam(); break;
         //case 3: deleteTeam(); break;
         default: break;
