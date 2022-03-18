@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no), Daniel Pietrzykowski Sarjomaa (NTNU)
  * @brief Main file of Edutrail project.
- * @version 0.1.0
+ * @version 0.1.1
  * @date 2022-03-14
  *  
  */
@@ -37,20 +37,20 @@ int main(){
     do{
         writeMainMenu();
         
-        command = lesInt("Choose a numeric option",1,6); // er egt bare 5 valg i hovedmenyen men valg 6 burde vel eksistere så brukere
+        command = lesInt("Choose a numeric option",0,6); // er egt bare 5 valg i hovedmenyen men valg 6 burde vel eksistere så brukere
                                                             // kan avslutte programmet, right? - Daniel
         cout << '\n';
         switch(command){ //funksjonsnavn kan endres
+            case 0: cout << "Terminating Program..."; break;
             case 1: teamMenu(); break;
             case 2: postsMenu(); break; 
             case 3: showResult(); break;
             case 4: registerResult(); break;
             case 5: showSettings(); break;
-            case 6: break;
             default: writeMainMenu();
         }
         
-    }while (command != 6);
+    }while (command != 0);
 }   
 
 void writeMainMenu(){
@@ -60,24 +60,28 @@ void writeMainMenu(){
          << "\t3. Show results\n"
          << "\t4. Register points \n"
          << "\t5. Settings \n"
-         << "\t6. Exit program \n";
+         << "\t0. Exit program \n";
 }
 //Teams Meny nedenfor og alle tilhørende funksjoner
 //kan flyttes til egen fil senere?
 void teamMenu(){
     int command;
-    cout << "Choose Option:\n"
-         << "\t1. New Team\n"
-         << "\t2. Edit Team\n"
-         << "\t3. Delete Team\n";
-    command = lesInt("Choose a numeric option",1,3);
+    do{                                 //Loops until the user returns to main menu by inputting 0
+        cout << "Choose Option:\n"
+            << "\t1. New Team\n"
+            << "\t2. Edit/Delete Team\n"
+            << "\t3. Display Teams\n"
+            << "\t0. Return to main menu\n";
+            command = lesInt("Choose a numeric option",0,3);
 
-    switch(command){
-        case 1: gMainRebus.newTeam(); break;
-//        case 2: gMainRebus.editTeam(); break; //Will finish theese later.
-//        case 3: gmainRebus.deleteTeam(); break;
-        default: break;
+        switch(command){
+            case 1: gMainRebus.newTeam(); break;
+//          case 2: gMainRebus.editTeam(); break; //Will finish theese later.
+            case 3: gMainRebus.listTeams(true,true); break;
+            default: break;
         }
+    }while(command!=0);
+
 }
 // team funksjoner slutt
 

@@ -2,7 +2,6 @@
  * @file Rebus.h
  * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no)
  * @brief File containing definitions and functions of Rebus class.
- * @version 0.0.0
  * @date 2022-03-14
  * 
  * 
@@ -30,7 +29,7 @@ class Rebus{
         void newTeam();
         void editTeam();
         void deleteTeam();
-        void listTeams();
+        void listTeams(const bool showName, const bool showMembers);
 };
 
 
@@ -43,16 +42,12 @@ void Rebus :: newTeam(){
     teams.push_back(tempTeam);
 }
 
-void Rebus :: deleteTeam(){
-
-}
-
 void Rebus :: editTeam(){
 
 }
 
-void Rebus :: listTeams(){
+void Rebus :: listTeams(const bool showName, const bool showMembers){
     for(int i=0;i<teams.size();i++){
-        cout << teams[i]->returnName() << "\n";
+        teams[i]->writeData(showName,showMembers);
     }
 }

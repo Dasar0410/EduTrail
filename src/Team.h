@@ -2,7 +2,6 @@
  * @file Team.h
  * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no)
  * @brief File containing definitions and functions of Team class.
- * @version 0.3.0
  * @date 2022-03-14
  * 
  * 
@@ -51,7 +50,6 @@ class Team{
  */
 void Team :: newMember(){
     string tempName;                    //Assisting varaible
-    cin.ignore();
     cout << "Enter name of member: ";   
     getline(cin,tempName);              //gets string from user
     participants.push_back(tempName);   //Adds the string to the back of the participants vector.
@@ -64,10 +62,12 @@ void Team :: readData(){
     getline(cin,name);                  //gets team tame from user as a string
     cout << "Do you want to add a new member? (y/n): ";
     cin >> option;                      //reads menu choice from user
+    cin.ignore();                       //Deletes remaining \n
     while(toupper(option)=='Y'){        //Will loop as long as user answers 'y' when asked if they want to add another member.
         newMember();                    //adds a new member. see function documentation.
         cout << "Do you want to add another member? (y/n): ";
         cin >> option;                  //reads in user input to restart loop.
+        cin.ignore();                   //Ignores remaining \n that was not reginsterd by the cin commmand.
     }
     
     cout << "New team \"" << name << "\" added.\n";
