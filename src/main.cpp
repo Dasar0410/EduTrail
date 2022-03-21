@@ -27,6 +27,7 @@ void showSettings();
 
 
 Rebus gMainRebus;           //den aktive rebus vi jobber på
+Checkpoint gCheckpoint;
 
 /**
  *  Main Program:
@@ -98,7 +99,7 @@ void postsMenu(){
     cout << '\n';
 
     switch(command){
-        //case 1: newPost(); break;
+        case 1: gCheckpoint.newPost(); break;
         //case 2: editPost(); break;
         //case 3: deletePost(); break; 
         default: break;
