@@ -134,7 +134,7 @@ void Team :: writeEditMenu(){
     cout << "\t2. Change name of participant\n";
     cout << "\t3. Delete participants\n";
     cout << "\t4. Set/Override points\n";
-    cout << "\t5. Cancel\n";
+    cout << "\t0. Cancel\n";
 }
 
 
@@ -147,7 +147,9 @@ void Team :: changeName(){
     cout << "Current team name: " << name;
     cout << "\n Choose new team name: ";
     getline(cin,tempNewName);
+    name = tempNewName;
     cout << "Changed team name to " << tempNewName << ".\n";
+    
 }
 
 
@@ -181,7 +183,11 @@ void Team :: deleteParticipant(){
 }
 
 void Team :: editPoints(){
-    //hmmm
+    int command; 
+    command = lesInt("Choose team to change points for",1,participants.size());
+    cout << "Team: " << name << "\nCurrent points: " << points[command-1];
+    points[command] = lesInt("Enter new points for team",0,99);//?? 
+    //hmmm hmmm hmmm
 }
 
 /**
