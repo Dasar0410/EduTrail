@@ -76,7 +76,7 @@ void teamMenu(){
 
         switch(command){
             case 1: gMainRebus.newTeam(); break;
-//          case 2: gMainRebus.editTeam(); break; //Will finish theese later.
+            case 2: gMainRebus.editTeam(); break; //Will finish theese later.
             case 3: gMainRebus.listTeams(true,true); break;
             default: break;
         }
