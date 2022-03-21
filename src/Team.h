@@ -55,7 +55,9 @@ void Team :: newMember(){
     participants.push_back(tempName);   //Adds the string to the back of the participants vector.
     cout << "New participant \"" << tempName << "\" added to team.\n";
 };
-
+/**
+ * @brief Reads in a new team and lets user add team members as long as he wants
+ */
 void Team :: readData(){
     char option;                        //assisting variable to store user menu input
     cout << "Choose a team name: ";
@@ -108,7 +110,7 @@ int Team :: getTotalPoints(){
 }
 
 
-
+/* foreløpig visklet ut pga bedre løsning i rebus.cpp?
 void Team :: edit(){
     int command;
     writeEditMenu();
@@ -122,7 +124,7 @@ void Team :: edit(){
         default: cout << "Returning to main menu...\n"; break;
     }
 }
-
+*/
 
 /**
  * @brief Writes on a menu to use when editing teams.
@@ -164,7 +166,7 @@ void Team :: editParticipant(){
     command = lesInt("Choose participant",1,participants.size());
     cout << "Participant " << participants[command-1] << "chosen.\nEnter new name: ";
     getline(cin,participants[command-1]);
-    cout << "Name changed to " << participants[command-1] << ". Returning...";
+    cout << "Name changed to " << participants[command-1] << "\nReturning...";
 }
 
 
@@ -181,18 +183,26 @@ void Team :: deleteParticipant(){
     participants[command-1] = participants[participants.size()-1];
     participants.pop_back();
 }
-
-void Team :: editPoints(){
-    int command; 
-    command = lesInt("Choose team to change points for",1,participants.size());
-    cout << "Team: " << name << "\nCurrent points: " << points[command-1];
-    points[command] = lesInt("Enter new points for team",0,99);//?? 
+/**
+ * @brief Function to let users edit points for all avaible posts for one team
+ * 
+ */
+void Team :: editPoints(){ 
+    if(points.size() < 0){
+    cout << "Team: " << name << "\nCurrent points: " << getTotalPoints() << '\n'; //føler at points vectoren er litt rar å jobbe med
+    for (int i = 0; i < points.size();i++){
+        cout << "Points for post nr." << i+1 << ": " << points[i] << '\n'; //shows points for each post 
+        points[i] = lesInt("Change points for this post",0,99); // 
+    }
+    cout << "Updated total points for team is now: " << getTotalPoints(); //shows updated total points for users
+    }
+    else cout << "There are no posts registered on team";
     //hmmm hmmm hmmm
 }
 
 /**
  * @brief i think my brain is in offline mode, so i really can't be bothered to find a better solution.
- * 
+ *          what is this function used for?? enter answer here:
  * @return string 
  */
 string Team :: returnName(){
