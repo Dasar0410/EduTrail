@@ -43,10 +43,11 @@ void Rebus :: newTeam(){
 }
 
 void Rebus :: editTeam(){
+    if(teams.size() > 0){ //if more than zero teams
     int option;
     int command;
     listTeams(true,false); // only show the team name, and not it's participants
-    command = lesInt("Choose team u want to edit",1,teams.size()); 
+    command = lesInt("Choose team you want to edit",1,teams.size()); 
     teams[command-1]->writeEditMenu(); // prints out menu
     
     do{
@@ -54,16 +55,24 @@ void Rebus :: editTeam(){
         switch(option){
             case 0: break;
             case 1: teams[command-1]->changeName(); break;
-            case 2: 
+            case 2: teams[command-1]->editParticipant(); break;
+            case 3: teams[command-1]->deleteParticipant(); break;
+            case 4: teams[command-1]->editPoints(); break;
         }
     }while(option != 0);
+    }
+    else cout << "\nThere are no teams to edit!\n";
 }
     
 
 
 
 void Rebus :: listTeams(const bool showName, const bool showMembers){
-    for(int i=0;i<teams.size();i++){
-        teams[i]->writeData(showName,showMembers);
+    if(teams.size() > 0){ // if more than zero teams
+        for(int i=0;i<teams.size();i++){
+            cout << "nr." << i+1 << ": ";
+            teams[i]->writeData(showName,showMembers);
+        }
     }
+    else cout << "\nThere are no teams to edit!\n";
 }
