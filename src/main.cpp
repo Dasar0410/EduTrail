@@ -95,11 +95,12 @@ void postsMenu(){
          << "\t2. Edit post\n"
          << "\t3. Delete post\n";
     command = lesInt("Choose a numeric option",1,3);
+    cout << '\n';
 
     switch(command){
         //case 1: newPost(); break;
         //case 2: editPost(); break;
-        //case 3: deletePost(); break;
+        //case 3: deletePost(); break; 
         default: break;
         }
 }
