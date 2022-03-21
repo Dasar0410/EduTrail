@@ -43,8 +43,24 @@ void Rebus :: newTeam(){
 }
 
 void Rebus :: editTeam(){
-
+    int option;
+    int command;
+    listTeams(true,false); // only show the team name, and not it's participants
+    command = lesInt("Choose team u want to edit",1,teams.size()); 
+    teams[command-1]->writeEditMenu(); // prints out menu
+    
+    do{
+        option = lesInt("Choose option:",0,4);
+        switch(option){
+            case 0: break;
+            case 1: teams[command-1]->changeName(); break;
+            case 2: 
+        }
+    }while(option != 0);
 }
+    
+
+
 
 void Rebus :: listTeams(const bool showName, const bool showMembers){
     for(int i=0;i<teams.size();i++){
