@@ -12,6 +12,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 
@@ -22,6 +23,38 @@ class Checkpoint{
         string name;
         string description;
         enum checkpointMode mode;
-        int maxPoints;
+        int maxPoints; // maxpoints able to be scored on a post
         int nr;
+        vector <Checkpoint*> posts;
+    public:
+        void readData();
+        void newPost(); // lager et nytt objekt og legger den inn i post vector
+        Checkpoint(){
+            
+        }
 };
+/**
+ * @brief Function that adds new post and adds to vector
+ * 
+ */
+void Checkpoint::newPost(){
+    Checkpoint* tempPost = new Checkpoint;
+    tempPost->readData();
+    posts.push_back(tempPost);
+}
+/**
+ * @brief Function that adds new post and adds to vector
+ * 
+ */
+void Checkpoint::readData(){
+    int userInput;
+    cout << "Postname: "; getline(cin,name);
+    cout << '\n';
+    cout << "Description: "; getline(cin,description);
+    cout << '\n';
+    nr = lesInt("nr",0,99);
+    userInput = lesInt("Choose post type (points,standardTime,Rankedtime)",0,2);
+    checkpointMode mode = static_cast<checkpointMode>(userInput);
+
+}
+
