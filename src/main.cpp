@@ -24,8 +24,8 @@ void showResult();
 void registerResult();
 void showSettings();
 
-
-Rebus gMainRebus;           //den aktive rebus vi jobber på
+vector <Rebus*> gAlleRebuser;         //alle rebuser i save filen blir lastet inn her.
+Rebus gMainRebus;                     //den aktive rebus vi jobber på.
 
 /**
  *  Main Program:
@@ -36,7 +36,7 @@ int main(){
     do{
         writeMainMenu();
         
-        command = lesInt("Choose a numeric option",0,6); // er egt bare 5 valg i hovedmenyen men valg 6 burde vel eksistere så brukere
+        command = lesInt("Choose a numeric option",0,6);    // er egt bare 5 valg i hovedmenyen men valg 6 burde vel eksistere så brukere
                                                             // kan avslutte programmet, right? - Daniel
         cout << '\n';
         switch(command){ //funksjonsnavn kan endres
@@ -150,7 +150,7 @@ void showSettings(){
     switch(command){
         case 0: break;
         case 1: gMainRebus.save(); break;
-        case 2: gMainRebus.load(); break;
+        case 2: gMainRebus.load(gMainFile); break;
         //case 2: newRebus(); break;
         default: break;
         }

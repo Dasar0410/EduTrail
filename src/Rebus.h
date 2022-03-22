@@ -24,10 +24,10 @@ using namespace std;
  */
 class Rebus{
     private:
+        string name;                    //name of rebus
         vector <Team*> teams;           //list of teams
         vector <Checkpoint*> posts;     //list of checkpoints
-        int checkpointAmount;           //how many checkpoints there are in total.
-        int highestCheckpointIndex;     //list the index of the highest non-null value in checkPoint vector
+        int checkpointAmount;           //how many checkpoints there are in total. Can give different results from posts.size()
 
     public:
         void newTeam();
@@ -39,7 +39,7 @@ class Rebus{
         void editPost();
         void registerPoints(); // registrerer resultat
         void save();
-        void load();
+        void load(fstream & input);
         void printSaves();
 };
 
@@ -157,11 +157,28 @@ void Rebus::save(){
  * @author Raphael
  * @see printSaves();
  */
-void Rebus::load(){
+void Rebus::load(fstream & input){
     printSaves();
-
-
-
+    int i = 0;                              //counts rebuser
+    int id = -1;                            //variable to identify next object in file. 0=end of rebus. 1=team. 2=checkpoint.
+    getline(input,name);                    //reads name of entire rebus
+                                            //reads amount of checkpoint and vector infomration.
+    input >> checkpointAmount;
+        input.ignore();                     //deletes remaining newline
+    input >> id; input.ignore();
+    while(id!=0){                           //loops as long as there is remaining checkpoints or teams on this rebus.
+        if(id==1){
+            Team * newTeam = new Team;      //creates new team
+            newTeam->fileRead(input,posts.size());        //reads team information.
+            teams.push_back(newTeam);       //adds team to list.
+        }         
+        else if(id==2){
+            Checkpoint * newPost = new Checkpoint;
+            //newPost->fileRead(input);;        //reads checkpoint information.
+            posts.push_back(newPost);
+        }    
+        input >> id; input.ignore();        //reads new id.
+    }
 }
 
 /**
@@ -169,8 +186,12 @@ void Rebus::load(){
  * 
  */
 void Rebus::printSaves(){
-
+    
 };
+
+
+
+
 
 
 #endif

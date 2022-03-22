@@ -33,6 +33,7 @@ class Team{
         void deleteParticipant();
         void editPoints();
         void addPoints(int postchoice,int maxpoints); // for poeng registrering med makspoengsum hentet fra post
+        void fileRead(fstream & input,int checkpointLength);
         string returnName();
 
         Team(){                         //Reads data to team upon it's creation.
@@ -213,3 +214,18 @@ void Team :: addPoints(int postchoice,int maxpoints){
 string Team :: returnName(){
     return name;
 }
+
+
+/**
+ * @brief Reads a short snippet of information from the main document. Made to work in sequesne with other read functions.
+ * 
+ * @param input file object.
+ * @param checkpointLength Amount of enabled indexes in the posts vector.
+ */
+void Team :: fileRead(fstream & input,int checkpointLength){
+    getline(input,name);
+    
+
+
+};
+
