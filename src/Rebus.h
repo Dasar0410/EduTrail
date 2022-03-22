@@ -108,16 +108,14 @@ void Rebus::editPost(){
     
     do{
         cout << "Choose Option:\n"          //will put this in function later... im lazy
-            << "\t1. Change post nr\n"
-            << "\t2. Change description\n"
-            << "\t3. Change Maxpoints\n"
+            << "\t1. Change description\n"
+            << "\t2. Change Maxpoints\n"
             << "\t0. Cancel\n";
             command = lesInt("Choose option",0,3);
             switch(command){
-                case 1: posts[postChoice]->editPostnr(); break;
-                case 2: posts[postChoice]->editDescription(); break;
-                case 3: posts[postChoice]->editMaxPoints(); break;
-                case 4: break;
+                case 1: posts[postChoice]->editDescription(); break;
+                case 2: posts[postChoice]->editMaxPoints(); break;
+                case 0: break;
                 
             }
 }while(command != 0);
