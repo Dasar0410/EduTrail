@@ -38,6 +38,7 @@ class Rebus{
         void listPosts(); //eventuelt legge til booler som ovenfor, ikke høy prioritet
         void newPost();
         void editPost();
+        void deletePost();
         void registerPoints(); // registrerer resultat
         void save();
         void load(fstream & input);
@@ -115,11 +116,15 @@ void Rebus::editPost(){
             switch(command){
                 case 1: posts[postChoice]->editDescription(); break;
                 case 2: posts[postChoice]->editMaxPoints(); break;
-                case 0: break;
-                
-            }
-}while(command != 0);
+                case 0: break;         
+                }
+    }while(command != 0);
 }
+
+void Rebus::deletePost(){
+
+}
+
 
 void Rebus::listPosts(){ // skal senere endre denne til 2 bool variabler for å velge hvor mye informasjon som skal printes ut
                         //som gjort i listTeams()
