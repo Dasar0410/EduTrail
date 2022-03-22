@@ -49,7 +49,6 @@ void Checkpoint::readPostData(){
     cout << '\n';
     cout << "Description: "; getline(cin,description);
     cout << '\n';
-    nr = lesInt("postnr",0,99);
     userInput = lesInt("Choose post type (points,standardTime,Rankedtime)",0,2);
     checkpointMode mode = static_cast<checkpointMode>(userInput); // effective method to convert userInput to chosen enum
     maxPoints = lesInt("Maxpoints for post",1,99);
@@ -58,19 +57,13 @@ void Checkpoint::readPostData(){
  * @brief Function that writes all data for one post
  */
 void Checkpoint::writePostData(){
-    cout << "postname: " << name << "postnr: " << nr << ", Maxpoints: " << maxPoints;
+    cout << "postname: " << name << ", Maxpoints: " << maxPoints;
 
 }
 /**
  * @brief Function that edits description for a post
  */
 void Checkpoint::editDescription(){
-
-}
-/**
- * @brief Function that edits Postnr for a post
- */
-void Checkpoint::editPostnr(){
 
 }
 /**
