@@ -28,7 +28,7 @@ void load(fstream & input);
 void listRebus();
 
 vector <Rebus*> gAlleRebuser;         //alle rebuser i save filen blir lastet inn her.
-Rebus gMainRebus;                     //den aktive rebus vi jobber på.
+Rebus * gMainRebus = new Rebus;                     //den aktive rebus vi jobber på.
 
 
 fstream gMainFile("saveFile.dta", ios::in | ios::out);  //Åpner fil.
@@ -80,9 +80,9 @@ void teamMenu(){
             command = lesInt("Choose a numeric option",0,3);
 
         switch(command){
-            case 1: gMainRebus.newTeam(); break;
-            case 2: gMainRebus.editTeam(); break; //Will finish theese later.
-            case 3: gMainRebus.listTeams(true,true); break;
+            case 1: gMainRebus->newTeam(); break;
+            case 2: gMainRebus->editTeam(); break; //Will finish theese later.
+            case 3: gMainRebus->listTeams(true,true); break;
             default: break;
         }
     }while(command!=0);
@@ -103,8 +103,8 @@ void postsMenu(){
     cout << '\n';
 
     switch(command){
-        case 1: gMainRebus.newPost(); break;
-        case 2: gMainRebus.editPost(); break;
+        case 1: gMainRebus->newPost(); break;
+        case 2: gMainRebus->editPost(); break;
         //case 3: deletePost(); break; 
         default: break;
         }
@@ -133,7 +133,7 @@ void showResult(){
 
 //registrer poeng funksjoner start
 void registerResult(){
-    gMainRebus.registerPoints();
+    gMainRebus->registerPoints();
 
 
     }
@@ -146,20 +146,21 @@ void registerResult(){
 // settings funksjoner start
 void showSettings(){
     int command;
-    cout << "Choose Option:\n"
-         << "\t1. Save Game\n"
-         << "\t2. Load Game\n"
-         << "\t3. New Game\n"
-         << "\t0. Return to main menu.\n";
-    command = lesInt("Choose a numeric option",1,3);
-
-    switch(command){
-        case 0: break;
-        case 1: gMainRebus.save(); break;
-        case 2: load(gMainFile); break;
-        //case 2: newRebus(); break;
-        default: break;
+    do{
+        cout << "Choose Option:\n"
+            << "\t1. Save Game\n"
+            << "\t2. Load Game\n"
+            << "\t3. New Game\n"
+            << "\t0. Return to main menu.\n";
+        command = lesInt("Choose a numeric option",0,3);
+        switch(command){
+            case 0: break;
+            case 1: gMainRebus->save(); break;
+            case 2: load(gMainFile); break;
+            //case 2: newRebus(); break;
+            default: break;
         }
+    }while(command!=0);
 }
 
 //settings funksjoner slutt
@@ -171,21 +172,23 @@ void showSettings(){
  */
 void load(fstream & input){
     input.seekg(0,ios::beg);    //begynner å lese fra toppen av scriptet
+    int command;
     int i=0;
     Rebus * nyRebus;
     while(input.eof()==false){
         nyRebus = new Rebus;
         nyRebus->load(input);
+        gAlleRebuser.push_back(nyRebus);
     }
-    cout << "Choose save: \n";
+    cout << "Choose Save: \n";
     listRebus();
-
+    command = lesInt("Choose a numeric option",1,gAlleRebuser.size());
+    gMainRebus = gAlleRebuser[command-1];          //copies the chosen rebus into the main 
 };
-
 
 void listRebus(){
     for(int i=0;i<gAlleRebuser.size();i++){
-        cout << "\t" << gAlleRebuser[i]->returnName() << "\n";
+        cout << "\t"<< i+1 << ": " << gAlleRebuser[i]->returnName() << "\n";
     }
 };
 
