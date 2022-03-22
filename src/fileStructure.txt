@@ -1,0 +1,17 @@
+<rebusNavn>
+<checkpointAmount> <highestIndex>
+<end=0/team=1/post=2> eksempel post:
+<name>
+<description>
+<mode> <maxPoints> <nr>
+<end=0/team=1/post=2> eksempel team:
+<name>
+<participant>
+<participant..>
+<participant...>
+<0 to stop reading participants>
+<points[0]> <points[1]> <points[2]> ... reads as many numbers as the highest index
+<end=0/team=1/post=2> eksempel 0:
+<rebusNavn>
+...
+

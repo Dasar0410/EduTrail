@@ -19,6 +19,7 @@ class Team{
     private:
         string name;
         vector <string> participants;           //liste med navn på alle gruppemedlemmene.
+        //!!!! point index for checkpoints that was removed must be set to -1.
         vector <int> points;                    //hvor mange poeng laget har for øyeblikket
 
     public:

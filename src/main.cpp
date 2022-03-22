@@ -141,15 +141,21 @@ void registerResult(){
 void showSettings(){
     int command;
     cout << "Choose Option:\n"
-         << "\t1. Save tournament\n"
-         << "\t2. Create new tournament\n";
+         << "\t1. Save Game\n"
+         << "\t2. Load Game\n"
+         << "\t3. New Game\n"
+         << "\t0. Return to main menu.\n";
     command = lesInt("Choose a numeric option",1,3);
 
     switch(command){
-        //case 1: saveTournament(); break;
-        //case 2: createTournament(); break;
+        case 0: break;
+        case 1: gMainRebus.save(); break;
+        case 2: gMainRebus.load(); break;
+        //case 2: newRebus(); break;
         default: break;
         }
 }
 
 //settings funksjoner slutt
+
+

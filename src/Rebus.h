@@ -24,8 +24,10 @@ using namespace std;
  */
 class Rebus{
     private:
-        vector <Team*> teams;
-        vector <Checkpoint*> posts;
+        vector <Team*> teams;           //list of teams
+        vector <Checkpoint*> posts;     //list of checkpoints
+        int checkpointAmount;           //how many checkpoints there are in total.
+        int highestCheckpointIndex;     //list the index of the highest non-null value in checkPoint vector
 
     public:
         void newTeam();
@@ -36,8 +38,13 @@ class Rebus{
         void newPost();
         void editPost();
         void registerPoints(); // registrerer resultat
-        
+        void save();
+        void load();
+        void printSaves();
 };
+
+
+fstream gMainFile("saveFile.dta", ios::in | ios::out);  //Åpner fil.
 
 
 /**
@@ -133,5 +140,37 @@ void Rebus::registerPoints(){
     int postChoice = lesInt("Choose a post number to register points for",1,posts.size());
     teams[teamChoice]->addPoints(postChoice,posts[postChoice]->returnMaxPoints());
 }
+
+
+/**
+ * @brief Writes information from program to save file.
+ * @author Raphael
+ */
+void Rebus::save(){
+
+
+
+};
+
+/**
+ * @brief Reads save information in to program.
+ * @author Raphael
+ * @see printSaves();
+ */
+void Rebus::load(){
+    printSaves();
+
+
+
+}
+
+/**
+ * @brief Writes out all stored saves.
+ * 
+ */
+void Rebus::printSaves(){
+
+};
+
 
 #endif
