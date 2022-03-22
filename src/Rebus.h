@@ -38,6 +38,7 @@ class Rebus{
         void listPosts(); //eventuelt legge til booler som ovenfor, ikke høy prioritet
         void newPost();
         void editPost();
+        void deletePost();
         void registerPoints(); // registrerer resultat
         void save(fstream & output);
         void load(fstream & input);
@@ -108,20 +109,26 @@ void Rebus::editPost(){
     
     do{
         cout << "Choose Option:\n"          //will put this in function later... im lazy
-            << "\t1. Change post nr\n"
-            << "\t2. Change description\n"
-            << "\t3. Change Maxpoints\n"
+            << "\t1. Change description\n"
+            << "\t2. Change Maxpoints\n"
             << "\t0. Cancel\n";
             command = lesInt("Choose option",0,3);
             switch(command){
-                case 1: posts[postChoice]->editPostnr(); break;
-                case 2: posts[postChoice]->editDescription(); break;
-                case 3: posts[postChoice]->editMaxPoints(); break;
-                case 4: break;
-                
-            }
-}while(command != 0);
+                case 1: posts[postChoice]->editDescription(); break;
+                case 2: posts[postChoice]->editMaxPoints(); break;
+                case 0: break;         
+                }
+    }while(command != 0);
 }
+
+void Rebus::deletePost(){
+    int command;                    //Assisting variable to store user input.
+    listPosts();          //Writes out a list of team members with index.
+    command = lesInt("Choose post to delete",1,posts.size());
+    posts[command-1] = posts[posts.size()-1];
+    posts.pop_back();
+}
+
 
 void Rebus::listPosts(){ // skal senere endre denne til 2 bool variabler for å velge hvor mye informasjon som skal printes ut
                         //som gjort i listTeams()

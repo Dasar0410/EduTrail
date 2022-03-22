@@ -106,7 +106,7 @@ void postsMenu(){
     switch(command){
         case 1: gMainRebus->newPost(); break;
         case 2: gMainRebus->editPost(); break;
-        //case 3: deletePost(); break; 
+        case 3: gMainRebus->deletePost(); break; 
         default: break;
         }
 }
