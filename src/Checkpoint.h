@@ -26,6 +26,7 @@ class Checkpoint{
         enum checkpointMode mode;
         int maxPoints; // maxpoints able to be scored on a post
         int nr;
+        
     public:
         void readPostData();
         void writePostData();
