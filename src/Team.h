@@ -14,6 +14,7 @@
 #include <fstream>
 #include <cctype>
 #include <string>
+#include <list>
 using namespace std;
 
 class Team{
@@ -34,6 +35,7 @@ class Team{
         void deleteParticipant();
         void editPoints();
         void addPoints(int postchoice,int maxpoints); // for poeng registrering med makspoengsum hentet fra post
+        //void addPostPoint(){}
         void fileRead(fstream & input,int checkpointLength);
         string returnName();
 
@@ -204,7 +206,11 @@ void Team :: editPoints(){
 }
 
 void Team :: addPoints(int postchoice,int maxpoints){
-    points[1] = lesInt("How many points did the team score on this post",0,maxpoints);
+    if(1 == 1){ // skal legge til sjekk her
+    int tempPoints;
+    tempPoints = lesInt("Skriv inn nye poeng for valgt post",0,maxpoints);
+    points.push_back(tempPoints);
+    }
 }
 
 /**
@@ -212,9 +218,7 @@ void Team :: addPoints(int postchoice,int maxpoints){
  *          what is this function used for?? enter answer here:
  * @return string 
  */
-string Team :: returnName(){
-    return name;
-}
+
 
 
 /**
