@@ -16,6 +16,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <list>
 using namespace std;
 
 
@@ -40,6 +41,7 @@ class Rebus{
         void editPost();
         void deletePost();
         void registerPoints(); // registrerer resultat
+        void showAllResults();
         void save();
         void load(fstream & input);
         string returnName();
@@ -96,6 +98,7 @@ void Rebus :: newPost(){
 Checkpoint* tempPost = new Checkpoint;
 tempPost->readPostData();
 posts.push_back(tempPost);
+
 }
 /**
  * @brief Function that first asks which post user wants to edit, and then show all ways user can edit the post,
@@ -140,11 +143,22 @@ void Rebus::listPosts(){ // skal senere endre denne til 2 bool variabler for å 
 }
 
 void Rebus::registerPoints(){
+    int tempMaxPoints;
     listTeams(true,false);
     int teamChoice = lesInt("Choose a team number to register points for",1,teams.size());
     listPosts();
     int postChoice = lesInt("Choose a post number to register points for",1,posts.size());
-    teams[teamChoice]->addPoints(postChoice,posts[postChoice]->returnMaxPoints());
+    if (1 == 1)
+    tempMaxPoints = posts[postChoice-1]->returnMaxPoints();
+    teams[teamChoice-1]->addPoints(postChoice-1, tempMaxPoints); // adds read points into team with addpoints function
+    }
+
+
+void Rebus::showAllResults(){
+    for (int i = 0; i < teams.size();i++){
+        cout << "nr." << i+1 << " ";
+        teams[i]->writeData(true,false);
+    }
 }
 
 

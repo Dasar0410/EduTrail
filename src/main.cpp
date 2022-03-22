@@ -122,7 +122,7 @@ void showResult(){
     command = lesInt("Choose a numeric option",1,3);
 
     switch(command){
-        //case 1: showAllResults(); break;
+        case 1: gMainRebus->showAllResults(); break;
         //case 2: showTeamResult(); break;
         //case 3: showPostResult(); break;
         default: break;
