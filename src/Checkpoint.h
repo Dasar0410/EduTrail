@@ -64,13 +64,15 @@ void Checkpoint::writePostData(){
  * @brief Function that edits description for a post
  */
 void Checkpoint::editDescription(){
-
+    cout << "Current description: " << description << '\n';
+    cout << "Write in new description: "; getline(cin,description);
 }
 /**
  * @brief Function that edits maxpoints for a post
  */
 void Checkpoint::editMaxPoints(){
-
+    cout << "Current maxpoints: " << maxPoints << '\n';
+    maxPoints = lesInt("Write in new maxpoints",0,99);
 }
 
 int Checkpoint :: returnMaxPoints(){

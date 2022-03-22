@@ -122,7 +122,11 @@ void Rebus::editPost(){
 }
 
 void Rebus::deletePost(){
-
+    int command;                    //Assisting variable to store user input.
+    listPosts();          //Writes out a list of team members with index.
+    command = lesInt("Choose post to delete",1,posts.size());
+    posts[command-1] = posts[posts.size()-1];
+    posts.pop_back();
 }
 
 
