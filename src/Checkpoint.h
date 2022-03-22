@@ -27,26 +27,26 @@ class Checkpoint{
         int nr;
         vector <Checkpoint*> posts;
     public:
-        void readData();
-        void newPost(); // lager et nytt objekt og legger den inn i post vector
-        Checkpoint(){
-            
+        void readPostData();
+        void newPost();
+        void editPost();
+        void writePostData();
+        int postNumber();
+        Checkpoint(){ // tom constructor cause why not
         }
 };
 /**
  * @brief Function that adds new post and adds to vector
- * 
  */
 void Checkpoint::newPost(){
     Checkpoint* tempPost = new Checkpoint;
-    tempPost->readData();
+    tempPost->readPostData();
     posts.push_back(tempPost);
 }
 /**
- * @brief Function that adds new post and adds to vector
- * 
+ * @brief Function that reads in data for one post
  */
-void Checkpoint::readData(){
+void Checkpoint::readPostData(){
     int userInput;
     cout << "Postname: "; getline(cin,name);
     cout << '\n';
@@ -54,7 +54,27 @@ void Checkpoint::readData(){
     cout << '\n';
     nr = lesInt("nr",0,99);
     userInput = lesInt("Choose post type (points,standardTime,Rankedtime)",0,2);
-    checkpointMode mode = static_cast<checkpointMode>(userInput);
+    checkpointMode mode = static_cast<checkpointMode>(userInput); // effective method to convert userInput to chosen enum
+    maxPoints = lesInt("Maxpoints for post",1,99);
+}
+/**
+ * @brief Function that writes all data for one post
+ */
+void Checkpoint::writePostData(){
+    cout << "postname: " << name << ", Maxpoints: " << maxPoints;
 
+}
+/**
+ * @brief Function that first prints out all posts and let's user choose a post and how to edit selected post
+ */
+void Checkpoint::editPost(){
+
+}
+
+/**
+ * @brief Also lazy solution. returns nr
+ */
+int Checkpoint::postNumber(){
+    return nr;
 }
 

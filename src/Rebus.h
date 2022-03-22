@@ -8,8 +8,10 @@
  */
 
 
-//#include "Checkpoint.h"
+#ifndef __CHECKPOINT_H
+#define __CHECKPOINT_H
 
+#include "Checkpoint.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -22,14 +24,16 @@ using namespace std;
  */
 class Rebus{
     private:
-//        vector <Checkpoint*> checkpoints;
         vector <Team*> teams;
+        vector <Checkpoint*> posts;
 
     public:
         void newTeam();
         void editTeam();
         void deleteTeam();
         void listTeams(const bool showName, const bool showMembers);
+        void listPosts(); //eventuelt legge til booler som ovenfor, ikke høy prioritet
+        void registerPoints(); // registrerer resultat
 };
 
 
@@ -76,3 +80,20 @@ void Rebus :: listTeams(const bool showName, const bool showMembers){
     }
     else cout << "\nThere are no teams to edit!\n";
 }
+
+void Rebus::listPosts(){
+    for(int i=0; i < posts.size();i++){
+        cout << "nr." << posts[i]->postNumber() << ": ";
+        posts[i]->writePostData();
+        cout << '\n';
+    }
+}
+
+void Rebus::registerPoints(){
+    listTeams(true,false);
+    int teamChoice = lesInt("Choose a team number to register points for",1,teams.size());
+    listPosts();
+    int postChoice = lesInt("Choose a post number to register points for",1,posts.size());
+}
+
+#endif

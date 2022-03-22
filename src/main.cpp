@@ -6,10 +6,9 @@
  * @date 2022-03-14
  *  
  */
-
+// fjernet include Checkpoint fordi den skal ikke brukes direkte av main og skapte mange errorer
 #include "LesData2.h"
-#include "Checkpoint.h"
-#include "Team.h"
+#include "Team.h" 
 #include "Rebus.h"
 #include "miscFunctions.h"
 
@@ -100,7 +99,7 @@ void postsMenu(){
 
     switch(command){
         case 1: gCheckpoint.newPost(); break;
-        //case 2: editPost(); break;
+        case 2: gCheckpoint.editPost(); break;
         //case 3: deletePost(); break; 
         default: break;
         }
@@ -129,7 +128,8 @@ void showResult(){
 
 //registrer poeng funksjoner start
 void registerResult(){
-    // registrer poeng for ett lag
+    gMainRebus.registerPoints();
+
 
     }
 
