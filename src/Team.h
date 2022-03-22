@@ -11,6 +11,7 @@
 #include "LesData2.h"
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include <cctype>
 #include <string>
 using namespace std;
@@ -36,8 +37,8 @@ class Team{
         void fileRead(fstream & input,int checkpointLength);
         string returnName();
 
-        Team(){                         //Reads data to team upon it's creation.
-            readData();
+        Team(){
+
         }
 
         ~Team(){
@@ -223,9 +224,23 @@ string Team :: returnName(){
  * @param checkpointLength Amount of enabled indexes in the posts vector.
  */
 void Team :: fileRead(fstream & input,int checkpointLength){
+    string newParticipant;  //temporary storage for participant name.
+    cout << "Team::fileRead - Reading new team from file.\n";
+    cout << "Team::fileRead - Checkpoint length: " << checkpointLength << "\n";
     getline(input,name);
-    
+    do{                                 //Loops and records particiapnts until there is a line with "0"
+        getline(input,newParticipant);
+        //cout << "\tTeam::fileRead - New Participant: \"" << newParticipant << "\"\n";
+        participants.push_back(newParticipant);
+    }while(newParticipant!="return");
+    participants.pop_back();            //deletes last string containing "0"
+    cout << "\tTeam::fileRead - All participants added. In total " << participants.size() << " were added to team.\n";
 
-
+    int tempPoints;
+    for(int i=0;i<checkpointLength;i++){ //loops through all checkpoints
+        input >> tempPoints;
+        points.push_back(tempPoints);
+        input.ignore();
+    };
+    cout << "\tTeam::fileRead - Points added from file.\n";
 };
-

@@ -12,6 +12,7 @@
 #include "Rebus.h"
 #include "miscFunctions.h"
 
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -23,9 +24,14 @@ void postsMenu();
 void showResult();
 void registerResult();
 void showSettings();
+void load(fstream & input);
+void listRebus();
 
 vector <Rebus*> gAlleRebuser;         //alle rebuser i save filen blir lastet inn her.
 Rebus gMainRebus;                     //den aktive rebus vi jobber på.
+
+
+fstream gMainFile("saveFile.dta", ios::in | ios::out);  //Åpner fil.
 
 /**
  *  Main Program:
@@ -150,7 +156,7 @@ void showSettings(){
     switch(command){
         case 0: break;
         case 1: gMainRebus.save(); break;
-        case 2: gMainRebus.load(gMainFile); break;
+        case 2: load(gMainFile); break;
         //case 2: newRebus(); break;
         default: break;
         }
@@ -158,4 +164,27 @@ void showSettings(){
 
 //settings funksjoner slutt
 
+/**
+ * @brief Reads information from document to different objects.
+ * 
+ * @param input 
+ */
+void load(fstream & input){
+    input.seekg(0,ios::beg);    //begynner å lese fra toppen av scriptet
+    int i=0;
+    Rebus * nyRebus;
+    while(input.eof()==false){
+        nyRebus = new Rebus;
+        nyRebus->load(input);
+    }
+
+
+};
+
+
+void listRebus(){
+    for(int i=0;i<gAlleRebuser.size();i++){
+        cout << gAlleRebuser[i]->returnName() << "\n";
+    }
+};
 

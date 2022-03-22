@@ -13,6 +13,7 @@
 
 #include "Checkpoint.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 using namespace std;
@@ -40,12 +41,8 @@ class Rebus{
         void registerPoints(); // registrerer resultat
         void save();
         void load(fstream & input);
-        void printSaves();
+        string returnName();
 };
-
-
-fstream gMainFile("saveFile.dta", ios::in | ios::out);  //Åpner fil.
-
 
 /**
  * @brief Function that creates a new team object on the team vector. See team constructor on the following process of team creation.
@@ -53,6 +50,7 @@ fstream gMainFile("saveFile.dta", ios::in | ios::out);  //Åpner fil.
  */
 void Rebus :: newTeam(){
     Team * tempTeam = new Team;
+    tempTeam->readData();
     teams.push_back(tempTeam);
 }
 
@@ -95,6 +93,7 @@ void Rebus :: listTeams(const bool showName, const bool showMembers){
  */
 void Rebus :: newPost(){
 Checkpoint* tempPost = new Checkpoint;
+tempPost->readPostData();
 posts.push_back(tempPost);
 }
 /**
@@ -152,46 +151,54 @@ void Rebus::save(){
 
 };
 
+
+
+
+
+
+
+
+
 /**
  * @brief Reads save information in to program.
  * @author Raphael
  * @see printSaves();
  */
 void Rebus::load(fstream & input){
-    printSaves();
     int i = 0;                              //counts rebuser
     int id = -1;                            //variable to identify next object in file. 0=end of rebus. 1=team. 2=checkpoint.
-    getline(input,name);                    //reads name of entire rebus
-                                            //reads amount of checkpoint and vector infomration.
-    input >> checkpointAmount;
-        input.ignore();                     //deletes remaining newline
+    cout << "Rebus::load() - Reading new rebus from file.\n";
+
+    getline(input,name);                //reads name of entire rebus       
+    input >> checkpointAmount;          //reads amount of checkpoint and vector infomration.
+        input.ignore();                 //deletes remaining newline
     input >> id; input.ignore();
-    while(id!=0){                           //loops as long as there is remaining checkpoints or teams on this rebus.
+
+
+    while(id!=0){                       //loops as long as there is remaining checkpoints or teams on this rebus.
         if(id==1){
-            Team * newTeam = new Team;      //creates new team
-            newTeam->fileRead(input,posts.size());        //reads team information.
-            teams.push_back(newTeam);       //adds team to list.
+            Team * newTeam = new Team;  //creates new team
+            newTeam->fileRead(input,checkpointAmount);        //reads team information.
+            teams.push_back(newTeam);   //adds team to list.
         }         
         else if(id==2){
             Checkpoint * newPost = new Checkpoint;
-            //newPost->fileRead(input);;        //reads checkpoint information.
+            newPost->fileRead(input);;  //reads checkpoint information.
             posts.push_back(newPost);
         }    
-        input >> id; input.ignore();        //reads new id.
+        input >> id;                    //reads new id.
+        cout << "Next ID: " << id << "\n";
+        input.ignore();    
     }
 }
 
 /**
- * @brief Writes out all stored saves.
+ * @brief This function instantly deletes your system32 directory.
  * 
+ * @return string 
  */
-void Rebus::printSaves(){
-    
+string Rebus::returnName(){
+    return name;
 };
-
-
-
-
-
 
 #endif
