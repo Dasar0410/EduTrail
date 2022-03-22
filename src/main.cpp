@@ -177,14 +177,15 @@ void load(fstream & input){
         nyRebus = new Rebus;
         nyRebus->load(input);
     }
-
+    cout << "Choose save: \n";
+    listRebus();
 
 };
 
 
 void listRebus(){
     for(int i=0;i<gAlleRebuser.size();i++){
-        cout << gAlleRebuser[i]->returnName() << "\n";
+        cout << "\t" << gAlleRebuser[i]->returnName() << "\n";
     }
 };
 
