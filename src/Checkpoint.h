@@ -12,6 +12,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <vector>
 using namespace std;
 
@@ -33,8 +34,9 @@ class Checkpoint{
         void editMaxPoints();
         int postNumber();
         int returnMaxPoints();
+        void fileRead(fstream & input);
         Checkpoint(){
-        readPostData();
+
         }
 };
 
@@ -88,5 +90,16 @@ int Checkpoint :: returnMaxPoints(){
  */
 int Checkpoint::postNumber(){
     return nr;
+}
+
+
+void Checkpoint::fileRead(fstream & input){
+    cout << "Checkpoint::fileRead - reading new checkpoint from file.\n";
+    int tempMode;                                       //variable for storing game mode as integer before casting
+    getline(input,name);
+    getline(input,description);
+    input >> tempMode >> maxPoints >> nr;               
+    mode = static_cast <enum checkpointMode>(tempMode); //gjør om int til enum.
+    input.ignore();                                     //ignores newline
 }
 
