@@ -27,6 +27,7 @@ void showSettings();
 void load(fstream & input);
 void save(fstream & output);
 void listRebus();
+void newRebus();
 
 vector <Rebus*> gAlleRebuser;         //alle rebuser i save filen blir lastet inn her.
 Rebus * gMainRebus = new Rebus;                     //den aktive rebus vi jobber på.
@@ -158,7 +159,7 @@ void showSettings(){
             case 0: break;
             case 1: save(gMainFile); break;
             case 2: load(gMainFile); break;
-            //case 2: newRebus(); break;
+            case 3: newRebus(); break;
             default: break;
         }
     }while(command!=0);
@@ -193,7 +194,11 @@ void listRebus(){
     }
 };
 
-
+/**
+ * @brief Initializes a series of functions that write data on teams, checkpoints and scores into a file.
+ * 
+ * @param output 
+ */
 void save(fstream & output){
     cout << "Saving... \n";
     output.clear();
@@ -204,3 +209,7 @@ void save(fstream & output){
     }
 }
 
+
+void newRebus(){
+    
+}
