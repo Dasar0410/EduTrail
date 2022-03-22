@@ -26,12 +26,12 @@ class Team{
         void newMember();
         void writeData(const bool showName,const bool showMembers);
         int getTotalPoints();
-        void edit();
         void writeEditMenu();
         void changeName();;
         void editParticipant();
         void deleteParticipant();
         void editPoints();
+        void addPoints(int postchoice,int maxpoints); // for poeng registrering med makspoengsum hentet fra post
         string returnName();
 
         Team(){                         //Reads data to team upon it's creation.
@@ -198,6 +198,10 @@ void Team :: editPoints(){
     }
     else cout << "There are no posts registered on team";
     //hmmm hmmm hmmm
+}
+
+void Team :: addPoints(int postchoice,int maxpoints){
+    points[1] = lesInt("How many points did the team score on this post",0,maxpoints);
 }
 
 /**

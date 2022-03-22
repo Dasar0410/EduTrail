@@ -25,24 +25,19 @@ class Checkpoint{
         enum checkpointMode mode;
         int maxPoints; // maxpoints able to be scored on a post
         int nr;
-        vector <Checkpoint*> posts;
     public:
         void readPostData();
-        void newPost();
-        void editPost();
         void writePostData();
+        void editDescription();
+        void editPostnr();
+        void editMaxPoints();
         int postNumber();
-        Checkpoint(){ // tom constructor cause why not
+        int returnMaxPoints();
+        Checkpoint(){
+        readPostData();
         }
 };
-/**
- * @brief Function that adds new post and adds to vector
- */
-void Checkpoint::newPost(){
-    Checkpoint* tempPost = new Checkpoint;
-    tempPost->readPostData();
-    posts.push_back(tempPost);
-}
+
 /**
  * @brief Function that reads in data for one post
  */
@@ -52,7 +47,7 @@ void Checkpoint::readPostData(){
     cout << '\n';
     cout << "Description: "; getline(cin,description);
     cout << '\n';
-    nr = lesInt("nr",0,99);
+    nr = lesInt("postnr",0,99);
     userInput = lesInt("Choose post type (points,standardTime,Rankedtime)",0,2);
     checkpointMode mode = static_cast<checkpointMode>(userInput); // effective method to convert userInput to chosen enum
     maxPoints = lesInt("Maxpoints for post",1,99);
@@ -61,18 +56,35 @@ void Checkpoint::readPostData(){
  * @brief Function that writes all data for one post
  */
 void Checkpoint::writePostData(){
-    cout << "postname: " << name << ", Maxpoints: " << maxPoints;
+    cout << "postname: " << name << "postnr: " << nr << ", Maxpoints: " << maxPoints;
 
 }
 /**
- * @brief Function that first prints out all posts and let's user choose a post and how to edit selected post
+ * @brief Function that edits description for a post
  */
-void Checkpoint::editPost(){
+void Checkpoint::editDescription(){
 
+}
+/**
+ * @brief Function that edits Postnr for a post
+ */
+void Checkpoint::editPostnr(){
+
+}
+/**
+ * @brief Function that edits maxpoints for a post
+ */
+void Checkpoint::editMaxPoints(){
+
+}
+
+int Checkpoint :: returnMaxPoints(){
+    return maxPoints;
 }
 
 /**
  * @brief Also lazy solution. returns nr
+ *          not currently used
  */
 int Checkpoint::postNumber(){
     return nr;
