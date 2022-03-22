@@ -10,7 +10,7 @@
 <participant>
 <participant..>
 <participant...>
-<0 to stop reading participants>
+<"return" to stop reading participants>
 <points[0]> <points[1]> <points[2]> ... reads as many numbers as the highest index
 <end=0/team=1/post=2> eksempel 0:
 

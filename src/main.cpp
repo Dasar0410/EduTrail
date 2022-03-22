@@ -25,6 +25,7 @@ void showResult();
 void registerResult();
 void showSettings();
 void load(fstream & input);
+void save(fstream & output);
 void listRebus();
 
 vector <Rebus*> gAlleRebuser;         //alle rebuser i save filen blir lastet inn her.
@@ -155,7 +156,7 @@ void showSettings(){
         command = lesInt("Choose a numeric option",0,3);
         switch(command){
             case 0: break;
-            case 1: gMainRebus->save(); break;
+            case 1: save(gMainFile); break;
             case 2: load(gMainFile); break;
             //case 2: newRebus(); break;
             default: break;
@@ -191,4 +192,15 @@ void listRebus(){
         cout << "\t"<< i+1 << ": " << gAlleRebuser[i]->returnName() << "\n";
     }
 };
+
+
+void save(fstream & output){
+    cout << "Saving... \n";
+    output.clear();
+    output.seekg(0,ios::beg);    //begynner å skrive fra toppen av scriptet
+    for(int i=0;i<gAlleRebuser.size();i++){ //loops through all rebus' in memory
+        cout << "...\n";
+        gAlleRebuser[i]->save(output);
+    }
+}
 

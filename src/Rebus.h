@@ -39,7 +39,7 @@ class Rebus{
         void newPost();
         void editPost();
         void registerPoints(); // registrerer resultat
-        void save();
+        void save(fstream & output);
         void load(fstream & input);
         string returnName();
 };
@@ -142,24 +142,6 @@ void Rebus::registerPoints(){
 
 
 /**
- * @brief Writes information from program to save file.
- * @author Raphael
- */
-void Rebus::save(){
-
-
-
-};
-
-
-
-
-
-
-
-
-
-/**
  * @brief Reads save information in to program.
  * @author Raphael
  * @see printSaves();
@@ -191,6 +173,25 @@ void Rebus::load(fstream & input){
         input.ignore();    
     }
 }
+
+
+
+void Rebus::save(fstream & output){
+    output << name << "\n";                     //writes basic information.
+    output << checkpointAmount << "\n";
+
+    for(int i=0;i<teams.size();i++){            //loops through all teams
+        teams[i]->fileWrite(output);
+    }
+    for(int i=0;i<posts.size();i++){            //loops through all checkpoints
+        posts[i]->fileWrite(output);
+    }
+    output << "0";                              //0 marks the end of this rebus in the file.
+    if(output.eof()==false){output << "\n";};   //writes a newline only if it is not the end of the file. This is to avoyd empty lines at the end of the document.
+
+};
+
+
 
 /**
  * @brief This function instantly deletes your system32 directory.
