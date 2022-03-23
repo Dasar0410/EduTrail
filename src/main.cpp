@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no), Daniel Pietrzykowski Sarjomaa (NTNU)
  * @brief Main file of Edutrail project.
- * @version 1.0.1
+ * @version 1.0.2
  * @date 2022-03-14
  *  
  */
@@ -53,7 +53,7 @@ int main(){
             case 2: postsMenu(); break; 
             case 3: showResult(); break;
             case 4: registerResult(); break;
-            case 5: showSettings(); break;
+            case 5: /*showSettings();*/ break;  //CURRENTLY DISABLED
             default: writeMainMenu();
         }
         
@@ -66,7 +66,7 @@ void writeMainMenu(){
          << "\t2. Posts menu\n"
          << "\t3. Show results\n"
          << "\t4. Register points \n"
-         << "\t5. Settings \n"
+         << "\t5. Settings(Disabled in current build.)\n"
          << "\t0. Exit program \n";
 }
 //Teams Meny nedenfor og alle tilhørende funksjoner
