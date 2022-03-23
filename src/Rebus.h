@@ -46,6 +46,7 @@ class Rebus{
         void save();
         void save(fstream & output);
         void load(fstream & input);
+        void debugTeams();
         string returnName();
 };
 
@@ -159,12 +160,12 @@ void Rebus::registerPoints(){
         int teamChoice = lesInt("Choose a team number to register points for",1,teams.size());
         listPosts();
         do{
-
-        if(1 == 1){ // skal sette opp en sjekk om post allerede er registrert senere
-
-            postChoice = lesInt("Choose a post number to register points for (write 0 to stop registering points)",0,posts.size());
-            tempMaxPoints = posts[postChoice-1]->returnMaxPoints();
-            teams[teamChoice-1]->addPoints(postChoice-1, tempMaxPoints); // adds read points into team with addpoints function
+            if(1 == 1){ // skal sette opp en sjekk om post allerede er registrert senere
+                postChoice = lesInt("Choose a post number to register points for (write 0 to stop registering points)",0,posts.size());
+                if(postChoice!=0){  //this code caused the program to crash if 0 was inputted, should find a better solution.
+                    tempMaxPoints = posts[postChoice-1]->returnMaxPoints();
+                    teams[teamChoice-1]->addPoints(postChoice-1, tempMaxPoints); // adds read points into team with addpoints function
+                }
             } else cout << "Selected post is already registered";
         } while(postChoice != 0);
     }
@@ -231,7 +232,6 @@ void Rebus::save(fstream & output){
 };
 
 
-
 /**
  * @brief This function instantly deletes your system32 directory.
  * 
@@ -240,5 +240,14 @@ void Rebus::save(fstream & output){
 string Rebus::returnName(){
     return name;
 };
+
+
+/*Attempt to fix empty score value bug
+void Rebus::debugTeams(){
+    for(int i=0;i<teams.size();i++){
+        teams[i]->fillEmptyTeamIndex(posts.size());
+    };
+};
+*/
 
 #endif

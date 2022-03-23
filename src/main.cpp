@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no), Daniel Pietrzykowski Sarjomaa (NTNU)
  * @brief Main file of Edutrail project.
- * @version 0.1.1
+ * @version 1.0.1
  * @date 2022-03-14
  *  
  */
@@ -208,6 +208,7 @@ void save(fstream & output){
     output.seekg(0,ios::beg);    //begynner å skrive fra toppen av scriptet
     for(int i=0;i<gAlleRebuser.size();i++){ //loops through all rebus' in memory
         cout << "...\n";
+        //gAlleRebuser[i]->debugTeams();
         gAlleRebuser[i]->save(output);
     }
 }
