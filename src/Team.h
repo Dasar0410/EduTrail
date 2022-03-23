@@ -37,6 +37,7 @@ class Team{
         void addPoints(int postchoice,int maxpoints); // for poeng registrering med makspoengsum hentet fra post
         //void addPostPoint(){}
         void fileRead(fstream & input,int checkpointLength);
+        void fileWrite(fstream & output);
         string returnName();
 
         Team(){
@@ -247,4 +248,22 @@ void Team :: fileRead(fstream & input,int checkpointLength){
         input.ignore();
     };
     cout << "\tTeam::fileRead - Points added from file.\n";
+};
+
+/**
+ * @brief Writes the content of a team into the file.
+ * 
+ * @param output 
+ */
+void Team::fileWrite(fstream & output){
+    output << "1\n";                        //identiefies this as a team
+    output << name << "\n";
+    for(int i=0;i<participants.size();i++){ //loops thorugh all participants and writes them out.
+        output << participants[i] << "\n";
+    };
+    output << "return\n";                   //"return" marks the end of the participant list
+    for(int i=0;i<points.size();i++){       //this will probably break at some point, but i would rather not think ahead and plan right now so it will stay like this for now.
+        output << points[i] << " ";         //writes out points from each individual checkpoint
+    }
+    output << "\n";
 };

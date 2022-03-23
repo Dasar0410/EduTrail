@@ -36,6 +36,7 @@ class Checkpoint{
         int postNumber();
         int returnMaxPoints();
         void fileRead(fstream & input);
+        void fileWrite(fstream & output);
         Checkpoint(){
 
         }
@@ -88,14 +89,29 @@ int Checkpoint::postNumber(){
     return nr;
 }
 
-
+/**
+ * @brief Reads data from the file into a single checkpoint.
+ * 
+ * @param input 
+ */
 void Checkpoint::fileRead(fstream & input){
     cout << "Checkpoint::fileRead - reading new checkpoint from file.\n";
     int tempMode;                                       //variable for storing game mode as integer before casting
     getline(input,name);
     getline(input,description);
     input >> tempMode >> maxPoints >> nr;               
-    mode = static_cast <enum checkpointMode>(tempMode); //gjør om int til enum.
+    mode = static_cast <enum checkpointMode>(tempMode); //casts integer in file to enum type.
     input.ignore();                                     //ignores newline
 }
 
+/**
+ * @brief Writes the content of a checkpoint into the file.
+ * 
+ * @param output 
+ */
+void Checkpoint::fileWrite(fstream & output){
+    output << "2\n";
+    output << name << "\n";
+    output << description << "\n";
+    output << mode << " " <<maxPoints << " " << nr << "\n";
+};

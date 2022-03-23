@@ -16,7 +16,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <list>
+#include <map>
 using namespace std;
 
 
@@ -42,7 +42,9 @@ class Rebus{
         void deletePost();
         void registerPoints(); // registrerer resultat
         void showAllResults();
+        void showPostResult(); // gjør denne en annen gang, jeg har spaghetti koda for mye så skal ordne opp i det først
         void save();
+        void save(fstream & output);
         void load(fstream & input);
         string returnName();
 };
@@ -105,31 +107,37 @@ posts.push_back(tempPost);
  *        and let's the user thn pick one of said options.
  */
 void Rebus::editPost(){
-    int postChoice;
-    int command;
-    listPosts();
-    postChoice = lesInt("Choose post to edit",1,posts.size());
-    
-    do{
-        cout << "Choose Option:\n"          //will put this in function later... im lazy
-            << "\t1. Change description\n"
-            << "\t2. Change Maxpoints\n"
-            << "\t0. Cancel\n";
-            command = lesInt("Choose option",0,3);
-            switch(command){
-                case 1: posts[postChoice]->editDescription(); break;
-                case 2: posts[postChoice]->editMaxPoints(); break;
-                case 0: break;         
-                }
-    }while(command != 0);
+    if (posts.size() > 0){
+        int postChoice;
+        int command;
+        listPosts();
+        postChoice = lesInt("Choose post to edit",1,posts.size());
+        
+        do{
+            cout << "Choose Option:\n"          //will put this in function later... im lazy
+                << "\t1. Change description\n"
+                << "\t2. Change Maxpoints\n"
+                << "\t0. Cancel\n";
+                command = lesInt("Choose option",0,3);
+                switch(command){
+                    case 1: posts[postChoice]->editDescription(); break;
+                    case 2: posts[postChoice]->editMaxPoints(); break;
+                    case 0: break;         
+                    }
+        }while(command != 0);
+    }
+    else cout << "No posts available\n";
 }
 
 void Rebus::deletePost(){
-    int command;                    //Assisting variable to store user input.
-    listPosts();          //Writes out a list of team members with index.
-    command = lesInt("Choose post to delete",1,posts.size());
-    posts[command-1] = posts[posts.size()-1];
-    posts.pop_back();
+    if (posts.size() > 0){
+        int command;                    //Assisting variable to store user input.
+        listPosts();          //Writes out a list of team members with index.
+        command = lesInt("Choose post to delete",1,posts.size());
+        posts[command-1] = posts[posts.size()-1];
+        posts.pop_back();
+    }
+    else cout << "No posts available\n";
 }
 
 
@@ -140,18 +148,28 @@ void Rebus::listPosts(){ // skal senere endre denne til 2 bool variabler for å 
         posts[i]->writePostData();
         cout << '\n';
     }
+    
 }
 
 void Rebus::registerPoints(){
-    int tempMaxPoints;
-    listTeams(true,false);
-    int teamChoice = lesInt("Choose a team number to register points for",1,teams.size());
-    listPosts();
-    int postChoice = lesInt("Choose a post number to register points for",1,posts.size());
-    if (1 == 1)
-    tempMaxPoints = posts[postChoice-1]->returnMaxPoints();
-    teams[teamChoice-1]->addPoints(postChoice-1, tempMaxPoints); // adds read points into team with addpoints function
+    if (teams.size() > 0){
+        int postChoice;
+        int tempMaxPoints;
+        listTeams(true,false);
+        int teamChoice = lesInt("Choose a team number to register points for",1,teams.size());
+        listPosts();
+        do{
+
+        if(1 == 1){ // skal sette opp en sjekk om post allerede er registrert senere
+
+            postChoice = lesInt("Choose a post number to register points for (write 0 to stop registering points)",0,posts.size());
+            tempMaxPoints = posts[postChoice-1]->returnMaxPoints();
+            teams[teamChoice-1]->addPoints(postChoice-1, tempMaxPoints); // adds read points into team with addpoints function
+            } else cout << "Selected post is already registered";
+        } while(postChoice != 0);
     }
+    else cout << "There are no teams to edit!\n";
+}
 
 
 void Rebus::showAllResults(){
@@ -160,24 +178,6 @@ void Rebus::showAllResults(){
         teams[i]->writeData(true,false);
     }
 }
-
-
-/**
- * @brief Writes information from program to save file.
- * @author Raphael
- */
-void Rebus::save(){
-
-
-
-};
-
-
-
-
-
-
-
 
 
 /**
@@ -212,6 +212,25 @@ void Rebus::load(fstream & input){
         input.ignore();    
     }
 }
+
+
+
+void Rebus::save(fstream & output){
+    output << name << "\n";                     //writes basic information.
+    output << checkpointAmount << "\n";
+
+    for(int i=0;i<teams.size();i++){            //loops through all teams
+        teams[i]->fileWrite(output);
+    }
+    for(int i=0;i<posts.size();i++){            //loops through all checkpoints
+        posts[i]->fileWrite(output);
+    }
+    output << "0";                              //0 marks the end of this rebus in the file.
+    if(output.eof()==false){output << "\n";};   //writes a newline only if it is not the end of the file. This is to avoyd empty lines at the end of the document.
+
+};
+
+
 
 /**
  * @brief This function instantly deletes your system32 directory.

@@ -25,7 +25,9 @@ void showResult();
 void registerResult();
 void showSettings();
 void load(fstream & input);
+void save(fstream & output);
 void listRebus();
+void newRebus();
 
 vector <Rebus*> gAlleRebuser;         //alle rebuser i save filen blir lastet inn her.
 Rebus * gMainRebus = new Rebus;                     //den aktive rebus vi jobber på.
@@ -95,11 +97,13 @@ void teamMenu(){
 // posts meny funksjoner
 void postsMenu(){
     int command;
+    do{
     cout << "Choose Option:\n"
          << "\t1. New post\n"
          << "\t2. Edit post\n"
-         << "\t3. Delete post\n";
-    command = lesInt("Choose a numeric option",1,3);
+         << "\t3. Delete post\n"
+         << "\t0. Back to main menu\n";
+    command = lesInt("Choose a numeric option",0,3);
     cout << '\n';
 
     switch(command){
@@ -108,6 +112,7 @@ void postsMenu(){
         case 3: gMainRebus->deletePost(); break; 
         default: break;
         }
+    }while(command != 0);
 }
 
 //post funksjoner slutt
@@ -155,9 +160,9 @@ void showSettings(){
         command = lesInt("Choose a numeric option",0,3);
         switch(command){
             case 0: break;
-            case 1: gMainRebus->save(); break;
+            case 1: save(gMainFile); break;
             case 2: load(gMainFile); break;
-            //case 2: newRebus(); break;
+            case 3: newRebus(); break;
             default: break;
         }
     }while(command!=0);
@@ -192,3 +197,22 @@ void listRebus(){
     }
 };
 
+/**
+ * @brief Initializes a series of functions that write data on teams, checkpoints and scores into a file.
+ * 
+ * @param output 
+ */
+void save(fstream & output){
+    cout << "Saving... \n";
+    output.clear();
+    output.seekg(0,ios::beg);    //begynner å skrive fra toppen av scriptet
+    for(int i=0;i<gAlleRebuser.size();i++){ //loops through all rebus' in memory
+        cout << "...\n";
+        gAlleRebuser[i]->save(output);
+    }
+}
+
+
+void newRebus(){
+    
+}
