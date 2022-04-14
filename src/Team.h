@@ -25,12 +25,12 @@ class Team{
         vector <int> points;                    //hvor mange poeng laget har for øyeblikket
 
     public:
-        void readData();
+        void readData(int antallPoster);
         void newMember();
         void writeData(const bool showName,const bool showMembers);
         int getTotalPoints();
         void writeEditMenu();
-        void changeName();;
+        void changeName();
         void editParticipant();
         void deleteParticipant();
         void editPoints();
@@ -38,7 +38,10 @@ class Team{
         //void addPostPoint(){}
         void fileRead(fstream & input,int checkpointLength);
         void fileWrite(fstream & output);
+        void addEmptyScore();
         string returnName();
+        void regPoints(const int postNr, const int newPoints);
+        int getPoint(const int postNr);
 
         Team(){
 
@@ -64,7 +67,7 @@ void Team :: newMember(){
 /**
  * @brief Reads in a new team and lets user add team members as long as he wants
  */
-void Team :: readData(){
+void Team :: readData(int antallPoster){
     char option;                        //assisting variable to store user menu input
     cout << "Choose a team name: ";
     getline(cin,name);                  //gets team tame from user as a string
@@ -78,6 +81,11 @@ void Team :: readData(){
         cin.ignore();                   //Ignores remaining \n that was not reginsterd by the cin commmand.
     }
     
+    for(int i=0;i<antallPoster;i++){ //adds default scores into points vector
+        points.push_back(0);
+    }
+
+
     cout << "New team \"" << name << "\" added.\n";
 };
 
@@ -137,11 +145,11 @@ void Team :: edit(){
  * 
  */
 void Team :: writeEditMenu(){
+    cout << "\n\n";
     cout << "Choose Option:\n";
     cout << "\t1. Change team name\n";
     cout << "\t2. Change name of participant\n";
     cout << "\t3. Delete participants\n";
-    cout << "\t4. Set/Override points\n";
     cout << "\t0. Cancel\n";
 }
 
@@ -152,8 +160,8 @@ void Team :: writeEditMenu(){
  */
 void Team :: changeName(){
     string tempNewName;
-    cout << "Current team name: " << name;
-    cout << "\n Choose new team name: ";
+    cout << "Current team name: " << name << "\n";
+    cout << "Choose new team name: ";
     getline(cin,tempNewName);
     name = tempNewName;
     cout << "Changed team name to " << tempNewName << ".\n";
@@ -172,7 +180,7 @@ void Team :: editParticipant(){
     command = lesInt("Choose participant",1,participants.size());
     cout << "Participant " << participants[command-1] << "chosen.\nEnter new name: ";
     getline(cin,participants[command-1]);
-    cout << "Name changed to " << participants[command-1] << "\nReturning...";
+    cout << "Name changed to " << participants[command-1] << "\n";
 }
 
 
@@ -185,7 +193,7 @@ void Team :: deleteParticipant(){
     cout << "All participants\n";  
     writeData(false,true);          //Writes out a list of team members with index.
     command = lesInt("Choose participant",1,participants.size());
-    cout << "Participant " << participants[command-1] << "chosen. Deleting...";
+    cout << "Participant " << participants[command-1] << "chosen. Deleting...\n";
     participants[command-1] = participants[participants.size()-1];
     participants.pop_back();
 }
@@ -210,15 +218,9 @@ void Team :: addPoints(int postchoice,int maxpoints){
     if(1 == 1){ // skal legge til sjekk her
     int tempPoints;
     tempPoints = lesInt("Skriv inn nye poeng for valgt post",0,maxpoints);
-    points.push_back(tempPoints);
+    points[postchoice] = tempPoints;    //inserts the points at the index of the post
     }
 }
-
-/**
- * @brief i think my brain is in offline mode, so i really can't be bothered to find a better solution.
- *          what is this function used for?? enter answer here:
- * @return string 
- */
 
 
 
@@ -266,4 +268,22 @@ void Team::fileWrite(fstream & output){
         output << points[i] << " ";         //writes out points from each individual checkpoint
     }
     output << "\n";
+};
+
+/**
+ * @brief Adds 0 at end of points vector. For use after a new post has been made.
+ * 
+ */
+void Team::addEmptyScore(){
+    points.push_back(0);
+}
+
+
+void Team::regPoints(const int postNr, const int newPoints){
+    points[postNr]=newPoints;
+};
+
+
+int Team::getPoint(const int postNr){
+    return points[postNr];
 };

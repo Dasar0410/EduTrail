@@ -40,14 +40,19 @@ class Rebus{
         void newPost();
         void editPost();
         void deletePost();
-        void registerPoints(); // registrerer resultat
+        void registerPoints(const string mode); // registrerer resultat
         void showAllResults();
         void showPostResult(); // gjør denne en annen gang, jeg har spaghetti koda for mye så skal ordne opp i det først
+        void showTeamResult();
         void save();
         void save(fstream & output);
         void load(fstream & input);
-        void debugTeams();
+        void readData();
         string returnName();
+        int returnPostNr();
+        void oppdaterTeamNyPost();
+        bool isBlackListed(int nr, vector <int> blacklist);
+
 };
 
 /**
@@ -56,7 +61,7 @@ class Rebus{
  */
 void Rebus :: newTeam(){
     Team * tempTeam = new Team;
-    tempTeam->readData();
+    tempTeam->readData(returnPostNr());
     teams.push_back(tempTeam);
 }
 
@@ -66,16 +71,15 @@ void Rebus :: editTeam(){
     int command;
     listTeams(true,false); // only show the team name, and not it's participants
     command = lesInt("Choose team you want to edit",1,teams.size()); 
-    teams[command-1]->writeEditMenu(); // prints out menu
     
     do{
-        option = lesInt("Choose option:",0,4);
+        teams[command-1]->writeEditMenu(); // prints out menu
+        option = lesInt("Choose option:",0,3);
         switch(option){
             case 0: break;
-            case 1: teams[command-1]->changeName(); break;
-            case 2: teams[command-1]->editParticipant(); break;
-            case 3: teams[command-1]->deleteParticipant(); break;
-            case 4: teams[command-1]->editPoints(); break;
+            case 1: cout << "\n\n"; teams[command-1]->changeName(); break;
+            case 2: cout << "\n\n"; teams[command-1]->editParticipant(); break;
+            case 3: cout << "\n\n"; teams[command-1]->deleteParticipant(); break;
         }
     }while(option != 0);
     }
@@ -101,7 +105,7 @@ void Rebus :: newPost(){
 Checkpoint* tempPost = new Checkpoint;
 tempPost->readPostData();
 posts.push_back(tempPost);
-
+oppdaterTeamNyPost(); //legger til en ny tom poengscore i alle lagene
 }
 /**
  * @brief Function that first asks which post user wants to edit, and then show all ways user can edit the post,
@@ -113,16 +117,20 @@ void Rebus::editPost(){
         int command;
         listPosts();
         postChoice = lesInt("Choose post to edit",1,posts.size());
-        
         do{
+            cout << "\n\n";
             cout << "Choose Option:\n"          //will put this in function later... im lazy
-                << "\t1. Change description\n"
-                << "\t2. Change Maxpoints\n"
-                << "\t0. Cancel\n";
-                command = lesInt("Choose option",0,3);
+                << "\t1. Change name\n"
+                << "\t2. Change description\n"
+                << "\t3. Change max points\n"
+                << "\t4. Change game mode\n"
+                << "\t0. Return to main menu\n";
+                command = lesInt("Choose option",0,4);
                 switch(command){
-                    case 1: posts[postChoice]->editDescription(); break;
-                    case 2: posts[postChoice]->editMaxPoints(); break;
+                    case 1: cout << "\n\n"; posts[postChoice-1]->editName(); break;
+                    case 2: cout << "\n\n"; posts[postChoice-1]->editDescription(); break;
+                    case 3: cout << "\n\n"; posts[postChoice-1]->editMaxPoints(); break;
+                    case 4: cout << "\n\n"; posts[postChoice-1]->editGamemode(); break;
                     case 0: break;         
                     }
         }while(command != 0);
@@ -145,41 +153,88 @@ void Rebus::deletePost(){
 void Rebus::listPosts(){ // skal senere endre denne til 2 bool variabler for å velge hvor mye informasjon som skal printes ut
                         //som gjort i listTeams()
     for(int i=0; i < posts.size();i++){
-        cout << i+1 << "." << ": ";
+        cout << "nr." << i+1 << ": ";
         posts[i]->writePostData();
         cout << '\n';
     }
     
 }
 
-void Rebus::registerPoints(){
-    if (teams.size() > 0){
-        int postChoice;
-        int tempMaxPoints;
+void Rebus::registerPoints(const string mode){
+    int postNr,teamNr,points,time;
+    if(mode=="detailed"){
+        cout << "Teams:\n";
         listTeams(true,false);
-        int teamChoice = lesInt("Choose a team number to register points for",1,teams.size());
+        teamNr = lesInt("Choose team",1,teams.size())-1;
+        cout << "\nCheckpoints:\n";
         listPosts();
+        postNr = lesInt("Choose checkpoint",1,posts.size())-1;
+        
+        if(posts[postNr]->returnType()==1){
+            points = lesInt("Input points",0,posts[postNr]->returnMaxPoints());
+        }else if(posts[postNr]->returnType()==2){
+            time = lesInt("Input time",1,900);
+            points = posts[postNr]->timeToPoints(time);
+        };
+        teams[teamNr]->regPoints(postNr,points);
+
+    }else if(mode=="quick"){
         do{
-            if(1 == 1){ // skal sette opp en sjekk om post allerede er registrert senere
-                postChoice = lesInt("Choose a post number to register points for (write 0 to stop registering points)",0,posts.size());
-                if(postChoice!=0){  //this code caused the program to crash if 0 was inputted, should find a better solution.
-                    tempMaxPoints = posts[postChoice-1]->returnMaxPoints();
-                    teams[teamChoice-1]->addPoints(postChoice-1, tempMaxPoints); // adds read points into team with addpoints function
-                }
-            } else cout << "Selected post is already registered";
-        } while(postChoice != 0);
+            cout << "Teams:\n";
+            listTeams(true,false);
+            cout << "\nCheckpoints:\n";
+            listPosts();
+            cout << "\nInput syntax: <team nr> <post nr> <points/time>\n";
+            cout << "Input Points(0 to exit): ";
+            cin >> teamNr;
+            teamNr--;
+            if(teamNr!=-1){
+                cin >> postNr;
+                postNr--;
+                if(posts[postNr]->returnType()==1){
+                    cin >> points;
+                    if(points>posts[postNr]->returnMaxPoints()){
+                        points=posts[postNr]->returnMaxPoints();
+                    };
+                }else if(posts[postNr]->returnType()==2){
+                    cin >> time;
+                    points = posts[postNr]->timeToPoints(time);
+                };
+                teams[teamNr]->regPoints(postNr,points);
+            }
+        }while(teamNr!=-1);
+        cin.ignore();
     }
-    else cout << "There are no teams to edit!\n";
 }
 
 
 void Rebus::showAllResults(){
-    for (int i = 0; i < teams.size();i++){
-        cout << "nr." << i+1 << " ";
-        teams[i]->writeData(true,false);
+    vector <int> blacklist;
+    int mostPoints=0, bestTeam, i, k=1;
+    while(blacklist.size()<teams.size()){
+        for(i = 0;i<teams.size();i++){
+            if(mostPoints<=teams[i]->getTotalPoints()&&isBlackListed(i,blacklist)==false){
+                mostPoints=teams[i]->getTotalPoints();
+                bestTeam = i;
+            }
+        };
+        cout << k << ": ";
+        k++;
+        teams[bestTeam]->writeData(true,false);
+        blacklist.push_back(bestTeam);
+        mostPoints=0;
     }
+    int done = lesInt("Input 0 to return",0,0);
 }
 
+bool Rebus::isBlackListed(int nr, vector <int> blacklist){
+    for(int i = 0;i<blacklist.size();i++){
+        if(nr==blacklist[i]){
+            return true;
+        }
+    }
+    return false;
+}
 
 /**
  * @brief Reads save information in to program.
@@ -192,8 +247,7 @@ void Rebus::load(fstream & input){
     cout << "Rebus::load() - Reading new rebus from file.\n";
 
     getline(input,name);                //reads name of entire rebus       
-    input >> checkpointAmount;          //reads amount of checkpoint and vector infomration.
-        input.ignore();                 //deletes remaining newline
+    input >> checkpointAmount; input.ignore();          //reads amount of checkpoint and vector infomration.
     input >> id; input.ignore();
 
 
@@ -217,8 +271,11 @@ void Rebus::load(fstream & input){
 
 
 void Rebus::save(fstream & output){
+    if(output.tellg()!=0){   //lager newline med mindre det er begynnelsen av filen.
+        output << "\n";
+    };
     output << name << "\n";                     //writes basic information.
-    output << checkpointAmount << "\n";
+    output << posts.size() << "\n";
 
     for(int i=0;i<teams.size();i++){            //loops through all teams
         teams[i]->fileWrite(output);
@@ -227,7 +284,7 @@ void Rebus::save(fstream & output){
         posts[i]->fileWrite(output);
     }
     output << "0";                              //0 marks the end of this rebus in the file.
-    if(output.eof()==false){output << "\n";};   //writes a newline only if it is not the end of the file. This is to avoyd empty lines at the end of the document.
+    //if(output.eof()==false){output << "\n";};   //writes a newline only if it is not the end of the file. This is to avoyd empty lines at the end of the document.
 
 };
 
@@ -242,12 +299,55 @@ string Rebus::returnName(){
 };
 
 
-/*Attempt to fix empty score value bug
-void Rebus::debugTeams(){
+
+int Rebus::returnPostNr(){
+    return posts.size();
+}
+
+void Rebus::oppdaterTeamNyPost(){
     for(int i=0;i<teams.size();i++){
-        teams[i]->fillEmptyTeamIndex(posts.size());
-    };
+        teams[i]->addEmptyScore();
+    }
 };
+
+
+void Rebus::readData(){
+    cout << "Name new tournament: ";
+    getline(cin,name);
+}
+
+/*
+void Rebus::showPostResult(){
+    int postNr, bestScore=0, k=1, index=0;
+    string bestName;
+    vector <int> score;
+    vector <string> name;
+    listPosts();
+    postNr = lesInt("Choose checkpoint to view",1,posts.size())-1;
+    posts[postNr]->writePostData();
+    for(int i=0;i<teams.size();i++){
+        name.push_back(teams[i]->returnName());
+        score.push_back(teams[i]->getPoint(postNr));
+    }
+    while(score.empty()==false){
+        for(int i=0;i<score.size();i++){
+            if(bestScore>=score[i]){
+                bestScore = score[i];
+                bestName = name[i];
+                index = i;
+            }
+        }
+        cout <<k<<":\t"<<bestName<<": "<<bestScore<<" points\n";
+        k++;
+        bestScore=0;
+        score[index]=0;
+    }
+};
+
+void Rebus::showTeamResult(){
+
+};
+
 */
 
 #endif
