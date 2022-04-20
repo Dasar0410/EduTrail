@@ -43,7 +43,6 @@ class Rebus{
         void registerPoints(); // registrerer resultat
         void showAllResults();
         void showPostResult(); // gjør denne en annen gang, jeg har spaghetti koda for mye så skal ordne opp i det først
-        void save();
         void save(fstream & output);
         void load(fstream & input);
         void debugTeams();

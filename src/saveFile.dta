@@ -7,6 +7,19 @@ Sondre
 Eirik
 return
 5 10
+1
+Kometkameratene
+Agent 25
+Kaptein My
+return
+10 4
+1
+Baneneripysjamas
+Banan
+Eple
+Hummer
+return
+1 5
 2
 Dart
 Kast dartpiler på ballonger for å få poeng.
@@ -15,6 +28,10 @@ Kast dartpiler på ballonger for å få poeng.
 Vannballong
 Gjør 10 passninger med en vannballong uten at den sprenger på minst mulig tid.
 2 10 1
+2
+Hubbabubba
+Tygg saa mye du kan paa 1 min
+0 15 2
 0
 Teit rebus
 1
