@@ -38,6 +38,7 @@ class Team{
         //void addPostPoint(){}
         void fileRead(fstream & input,int checkpointLength);
         void fileWrite(fstream & output);
+        void fillEmptyTeamIndex(const int checkpointAmount);
         string returnName();
 
         Team(){
@@ -266,4 +267,14 @@ void Team::fileWrite(fstream & output){
         output << points[i] << " ";         //writes out points from each individual checkpoint
     }
     output << "\n";
+};  
+
+/** Attempt to fix empty score value bug
+void Team::fillEmptyTeamIndex(const int checkpointAmount){
+    for(int i=0;i<checkpointAmount;i++){
+        if(points[i]<0&&points[i]!=-1){
+            points[i]=0;
+        }
+    }
 };
+*/
