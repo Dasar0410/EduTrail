@@ -10,7 +10,6 @@
 #include "LesData2.h"
 #include "Team.h" 
 #include "Rebus.h"
-#include "miscFunctions.h"
 
 #include <string>
 #include <iostream>
