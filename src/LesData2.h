@@ -92,9 +92,12 @@ int lesInt(const char* t, const int min, const int max)  {
     return tall;
 }
 
+/**
+ * @brief Reads an integer. If a non-integer is read, it instead returns -1.
+ * 
+ * @return int 
+ */
 int lesInt2(){
-    std::cout << "lesInt2 kjører\n";
-
     int tall;
     std::cin >> tall;
     if(std::cin.good()){
