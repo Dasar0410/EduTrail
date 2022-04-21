@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no), Daniel Pietrzykowski Sarjomaa (NTNU)
  * @brief Main file of Edutrail project.
- * @version 2.1.3
+ * @version 2.1.4
  * @date 2022-04-21
  *  
  */
@@ -67,6 +67,7 @@ int main(){
         save(gMainFile);                                //saves data to file before exiting program
     }else{                                              //if there is no file to read from, an error is displayed, and the program terminates
         cout << "Error: Cannot find file \"saveFile.dta\"\n";
+        lesInt("Input 0 to terminate program",0,0);
         cout << "Terminating Program...\n";
     }
 }   
