@@ -51,7 +51,7 @@ class Rebus{
         int returnPostNr();
         void oppdaterTeamNyPost();
         bool isBlackListed(int nr, vector <int> blacklist);
-
+        bool readyToRead();
 };
 
 /**
@@ -161,6 +161,8 @@ void Rebus::listPosts(){ // skal senere endre denne til 2 bool variabler for å 
 
 void Rebus::registerPoints(const string mode){
     int postNr,teamNr,points,time;
+    bool failed;
+
     if(mode=="detailed"){
         cout << "Teams:\n";
         listTeams(true,false);
@@ -179,27 +181,38 @@ void Rebus::registerPoints(const string mode){
 
     }else if(mode=="quick"){
         do{
+            for(int i=0;i<100;i++)cout << "\n";
             cout << "Teams:\n";
             listTeams(true,false);
             cout << "\nCheckpoints:\n";
             listPosts();
+
+            failed=false;
+
             cout << "\nInput syntax: <team nr> <post nr> <points/time>\n";
             cout << "Input Points(0 to exit): ";
-            cin >> teamNr;
+            teamNr = lesInt2();
+            if(teamNr==-1){failed=true;}
             teamNr--;
-            if(teamNr!=-1){
-                cin >> postNr;
+            if(teamNr!=-1&&failed==false){
+                postNr = lesInt2();
+                if(postNr==-1){failed=true;}
                 postNr--;
-                if(posts[postNr]->returnType()==1){
-                    cin >> points;
-                    if(points>posts[postNr]->returnMaxPoints()){
-                        points=posts[postNr]->returnMaxPoints();
+                if(failed==false){
+                    if(posts[postNr]->returnType()==1){
+                        points = lesInt2();
+                        if(points==-1){failed=true; points = 0;}
+                        if(points>posts[postNr]->returnMaxPoints()&&failed==false){
+                            points=posts[postNr]->returnMaxPoints();
+                        };
+                    }else if(posts[postNr]->returnType()==2&&failed==false){
+                        cin >> time;
+                        points = posts[postNr]->timeToPoints(time);
                     };
-                }else if(posts[postNr]->returnType()==2){
-                    cin >> time;
-                    points = posts[postNr]->timeToPoints(time);
-                };
-                teams[teamNr]->regPoints(postNr,points);
+                    teams[teamNr]->regPoints(postNr,points);
+                }else{
+                    cout << "ERROR: One or more inputs were invalid. Ignoring input.\n";
+                }
             }
         }while(teamNr!=-1);
         cin.ignore();
@@ -348,5 +361,22 @@ void Rebus::showTeamResult(){
 };
 
 */
+
+
+bool Rebus::readyToRead(){
+    int ok=0;
+    if(posts.size()>0&&teams.size()>0){
+        return true;
+    }else if(posts.size()>0){
+        cout << "Error: Not enough teams to use this feature.\n";
+        ok = lesInt("Input 0 to return.",0,0);
+    }else if(teams.size()>0){
+        cout << "Error: Not enough checkpoints to use this feature.\n";
+        ok = lesInt("Input 0 to return.",0,0);
+    }else{
+        cout << "Error: At least 1 checkpoint and team are required to use this feature.\n";
+        ok = lesInt("Input 0 to return.",0,0);
+    }
+}
 
 #endif

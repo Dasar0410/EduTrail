@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no), Daniel Pietrzykowski Sarjomaa (NTNU)
  * @brief Main file of Edutrail project.
- * @version 2.1.0
+ * @version 2.1.1
  * @date 2022-04-14
  *  
  */
@@ -163,19 +163,22 @@ void showResult(){
 //registrer poeng funksjoner start
 void registerResult(){
     int command;
-    do{
-        createSpace(2);
-        cout << "Choose Option:\n"
-            << "\t1. Quick Input\n"
-            << "\t2. Detailed Input\n"
-            << "\t0. Return to main menu\n";
-        command = lesInt("Choose a numeric option",0,2);
-        switch(command){
-            case 1: createSpace(2); gMainRebus->registerPoints("quick"); break;
-            case 2: createSpace(2); gMainRebus->registerPoints("detailed"); break;
-            default: break;
-        };
-    }while(command!=0);
+    if(gMainRebus->readyToRead()){
+        do{
+            createSpace(2);
+            cout << "Choose Option:\n"
+                << "\t1. Quick Input\n"
+                << "\t2. Detailed Input\n"
+                << "\t0. Return to main menu\n";
+            command = lesInt("Choose a numeric option",0,2);
+            switch(command){
+                case 1: createSpace(2); gMainRebus->registerPoints("quick"); break;
+                case 2: createSpace(2); gMainRebus->registerPoints("detailed"); break;
+                default: break;
+            };
+        }while(command!=0);
+    };
+    
 }
 
 
