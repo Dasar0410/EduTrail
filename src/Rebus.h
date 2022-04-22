@@ -44,7 +44,6 @@ class Rebus{
         void showAllResults();
         void showPostResult(); // gjør denne en annen gang, jeg har spaghetti koda for mye så skal ordne opp i det først
         void showTeamResult();
-        void save();
         void save(fstream & output);
         void load(fstream & input);
         void readData();
