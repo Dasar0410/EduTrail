@@ -1,5 +1,5 @@
 /**
- *   Enkel verktøykasse for å lese:  tegn og tall.
+ *   Enkel verktï¿½ykasse for ï¿½ lese:  tegn og tall.
  *
  *   @file     LesData2.H
  *   @author   Frode Haug, NTNU
@@ -20,12 +20,13 @@ const int  MAXCHAR = 200;      //  Max.tegn i input-buffer.
 char  lesChar(const char* t);
 float lesFloat(const char* t, const float min, const float max);
 int   lesInt(const char* t, const int min, const int max);
+int   lesInt2();
 
 
 /**
  *  Leser og returnerer ett (upcaset) tegn.
  *
- *  @param   t  - Ledetekst til brukeren når ber om ett tegn
+ *  @param   t  - Ledetekst til brukeren nï¿½r ber om ett tegn
  *
  *  @return  Ett (upcaset) tegn.
  */
@@ -40,7 +41,7 @@ int   lesInt(const char* t, const int min, const int max);
 /**
  *  Leser og returnerer et flyttall mellom to gitte grenser.
  *
- *  @param   t    - Ledetekst til brukeren når ber om input/et tall
+ *  @param   t    - Ledetekst til brukeren nï¿½r ber om input/et tall
  *  @param   min  - Minimum for innlest og godtatt tallverdi
  *  @param   max  - Maksimum for innlest og godtatt tallverdi
  *
@@ -68,7 +69,7 @@ float lesFloat (const char* t, const float min, const float max)  {
 /**
  *  Leser og returnerer et heltall mellom to gitte grenser.
  *
- *  @param   t    - Ledetekst til brukeren når ber om input/et tall
+ *  @param   t    - Ledetekst til brukeren nï¿½r ber om input/et tall
  *  @param   min  - Minimum for innlest og godtatt tallverdi
  *  @param   max  - Maksimum for innlest og godtatt tallverdi
  *
@@ -90,5 +91,24 @@ int lesInt(const char* t, const int min, const int max)  {
 
     return tall;
 }
+
+/**
+ * @brief Reads an integer. If a non-integer is read, it instead returns -1.
+ * 
+ * @return int 
+ */
+int lesInt2(){
+    int tall;
+    std::cin >> tall;
+    if(std::cin.good()){
+        return tall;
+    }else{
+        std::cout << "ERROR: Not an integer.";
+        std::cin.clear();
+        std::cin.ignore(100,'\n');
+        return -1;
+    }
+}
+
 
 #endif
