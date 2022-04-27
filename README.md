@@ -1,14 +1,25 @@
-# Edutrail 2.1.5 (Current version)
+# Edutrail 2.1.6 (Current version)
 *Quick fix*
 
-## What's new with this release
-- Removed save option from "Save Management" submenu. Saving now occures automaticly when exiting the program or loading/creating another rebus. 
-- Main menu now displays the eduTrail logo.
+## Patch Notes
+- Fixed bug that crashed the program if a non-existent team or checkpoint was selected in quick registration mode.
 
 ## Known bugs with current release
 - No known bugs
 
 # Previous Versions
+
+
+## Edutrail 2.1.5
+*Quick fix*
+
+#### Patch Notes
+- Removed save option from "Save Management" submenu. Saving now occures automaticly when exiting the program or loading/creating another rebus. 
+- Main menu now displays the eduTrail logo.
+
+#### Known bugs
+- No known bugs
+
 
 ## Edutrail 2.0.4
 *Various bug fixes.*
