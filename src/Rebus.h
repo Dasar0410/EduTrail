@@ -187,8 +187,8 @@ void Rebus::registerPoints(const string mode){
     bool failed;                                    //To store failbit results of user input.
 
     if(mode=="detailed"){                           //If parameter "detailed" is enabled
-        cout << "Teams:\n";                         //Prints and reads what team and checkpoint the user want to add points to.
-        listTeams(true,false);                      
+        cout << "Teams:\n";                     //Prints and reads what team and checkpoint the user want to add points to.
+        listTeams(true,false);
         teamNr = lesInt("Choose team",1,teams.size())-1;
         cout << "\nCheckpoints:\n";
         listPosts();
@@ -216,11 +216,11 @@ void Rebus::registerPoints(const string mode){
             cout << "\nInput syntax: <team nr> <post nr> <points/time>\n";
             cout << "Input Points(0 to exit): ";
             teamNr = lesInt2();                     //Reads team number
-            if(teamNr==-1){failed=true;}            //If a non-integer was sendt, the command failed.
+            if(teamNr>teams.size()||teamNr<0){failed=true;} //If a non-integer was sendt, or a non-existent team, the command failed.
             teamNr--;                               //Adjust input to real index
             if(teamNr!=-1&&failed==false){          //If the user has not typed '0' to exit or typed an illegal input, the function continues.
                 postNr = lesInt2();                 //Reads checkpoint number and checks if it was a legal input.
-                if(postNr==-1){failed=true;}
+                if(postNr>posts.size()||postNr<0){failed=true;}
                 postNr--;                           //Adjust for real index.
                 if(failed==false){                  //If both previous inputs have been legan.
                     if(posts[postNr]->returnType()==1){ //If the chosen checkpointwas points based.
@@ -242,6 +242,8 @@ void Rebus::registerPoints(const string mode){
                 }else{
                     cout << "ERROR: One or more inputs were invalid. Ignoring input.\n";
                 }
+            }else{
+                cout << "ERROR: One or more inputs were invalid. Ignoring input.\n";
             }
         }while(teamNr!=-1);
         cin.ignore();                               //Clears buffer

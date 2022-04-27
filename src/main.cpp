@@ -2,8 +2,8 @@
  * @file main.cpp
  * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no), Daniel Pietrzykowski Sarjomaa (NTNU)
  * @brief Main file of Edutrail project.
- * @version 2.1.4
- * @date 2022-04-21
+ * @version 2.1.6
+ * @date 2022-04-27
  *  
  */
 // fjernet include Checkpoint fordi den skal ikke brukes direkte av main og skapte mange errorer
@@ -201,16 +201,15 @@ void showSettings(){
     do{                                             //loops until user input 0
         createSpace(2);
         cout << "Choose Option:\n"
-            << "\t1. Save Game\n"
-            << "\t2. Load Game\n"
-            << "\t3. New Game\n"
+            << "\t1. Load Game\n"
+            << "\t2. New Game\n"
             << "\t0. Return to main menu.\n";
         command = lesInt("Choose a numeric option",0,3);
         switch(command){
             case 0: createSpace(100); break;
-            case 1: createSpace(100); save(gMainFile); break;
-            case 2: createSpace(100); save(gMainFile); load(gMainFile,false,false); break;              //program must save before loading to avoid a number of file related bugs.
-            case 3: createSpace(100); save(gMainFile); load(gMainFile,false,true); newRebus(); break;   //again, to avoid a lot of buggy behavior i found it best to "refresh" the file before changing anything major in the datastructure.
+            //case 1: createSpace(100); save(gMainFile); break; //Disabled as the save function deletes most of the datastructure and doesn't work without running load after.
+            case 1: createSpace(100); save(gMainFile); load(gMainFile,false,false); break;              //program must save before loading to avoid a number of file related bugs.
+            case 2: createSpace(100); save(gMainFile); load(gMainFile,false,true); newRebus(); break;   //again, to avoid a lot of buggy behavior i found it best to "refresh" the file before changing anything major in the datastructure.
             default: createSpace(100); break;
         }
     }while(command!=0);
