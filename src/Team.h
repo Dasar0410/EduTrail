@@ -153,12 +153,18 @@ void Team :: changeName(){
  */
 void Team :: editParticipant(){
     int command;
-    cout << "All participants\n";
-    writeData(false,true);
-    command = lesInt("Choose participant",1,participants.size());
-    cout << "Participant " << participants[command-1] << "chosen.\nEnter new name: ";
-    getline(cin,participants[command-1]);
-    cout << "Name changed to " << participants[command-1] << "\n";
+    if(participants.size()!=0){                                 //Checks if the team has members
+        cout << "All participants\n";
+        writeData(false,true);
+        command = lesInt("Choose participant",1,participants.size());
+        cout << "Participant " << participants[command-1] << "chosen.\nEnter new name: ";
+        getline(cin,participants[command-1]);
+        cout << "Name changed to " << participants[command-1] << "\n";
+    }else{
+        cout << "Error: You must add members to the team before it can be edited.\n";
+        lesInt("Input 0 to return",0,0);
+    }
+
 }
 
 
@@ -168,12 +174,18 @@ void Team :: editParticipant(){
  */
 void Team :: deleteParticipant(){
     int command;                                            //Assisting variable to store user input.
-    cout << "All participants\n";  
-    writeData(false,true);                                  //Writes out a list of team members with index.
-    command = lesInt("Choose participant",1,participants.size());
-    cout << "Participant " << participants[command-1] << "chosen. Deleting...\n";
-    participants[command-1] = participants[participants.size()-1];
-    participants.pop_back();
+    if(participants.size()!=0){                                 //Checks if the team has members
+        cout << "All participants\n";  
+        writeData(false,true);                                  //Writes out a list of team members with index.
+        command = lesInt("Choose participant",1,participants.size());
+        cout << "Participant " << participants[command-1] << "chosen. Deleting...\n";
+        participants[command-1] = participants[participants.size()-1];
+        participants.pop_back();
+    }else{
+        cout << "Error: You cannot delete members when there are none in the team.\n";
+        lesInt("Input 0 to return",0,0);
+    }
+
 }
 
 

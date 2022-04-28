@@ -2,8 +2,8 @@
  * @file main.cpp
  * @author Raphael Storm Larsen (raphaesl@stud.ntnu.no), Daniel Pietrzykowski Sarjomaa (NTNU)
  * @brief Main file of Edutrail project.
- * @version 2.1.6
- * @date 2022-04-27
+ * @version 2.1.7
+ * @date 2022-04-28
  *  
  */
 // fjernet include Checkpoint fordi den skal ikke brukes direkte av main og skapte mange errorer
