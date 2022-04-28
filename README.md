@@ -1,14 +1,22 @@
-# Edutrail 2.1.6 (Current version)
+# Edutrail 2.1.7 (Current version)
 *Quick fix*
 
 ## Patch Notes
-- Fixed bug that crashed the program if a non-existent team or checkpoint was selected in quick registration mode.
+- Fixed an infinite loop that occured if you attempted to delete members in a team without members.
 
 ## Known bugs with current release
 - No known bugs
 
 # Previous Versions
 
+## Edutrail 2.1.6
+*Quick fix*
+
+### Patch Notes
+- Fixed bug that crashed the program if a non-existent team or checkpoint was selected in quick registration mode.
+
+### Known bugs with current release
+- No known bugs
 
 ## Edutrail 2.1.5
 *Quick fix*
